@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients":[
+    {
+      "item": "sedmod:caja_coca"
+    }
+  ],
+  "result": {
+    "item": "sedmod:coca",
+    "count": 9
+  }
+}

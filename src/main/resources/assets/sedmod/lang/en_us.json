@@ -1,0 +1,10 @@
+{
+  "item.sedmod.coca": "Coca-Cola",
+  "item.sedmod.pepsi": "Pepsi",
+  "item.sedmod.agua": "Agua embotellada",
+
+  "block.sedmod.caja_coca": "Caja de Coca",
+  "block.sedmod.caja_pepsi": "Caja de Pepsi",
+
+  "creativetab.tutorial_tab": "ModSed Tab"
+}

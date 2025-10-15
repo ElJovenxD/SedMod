@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "sedmod:coca"
+    }
+  },
+  "result": {
+    "item": "sedmod:caja_coca"
+  }
+}

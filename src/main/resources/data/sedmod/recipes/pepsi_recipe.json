@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "LLL",
+    "SWS"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal"
+    },
+    "L": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "W": {
+      "item": "minecraft:potion",
+      "remainder": {
+        "item": "minecraft:glass_bottle"
+      }
+    }
+  },
+  "result": {
+    "item": "sedmod:pepsi"
+  }
+}

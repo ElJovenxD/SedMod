@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:potion"
+  },
+  "result": "sedmod:agua",
+  "experience": 0.35,
+  "cookingtime": 200
+}

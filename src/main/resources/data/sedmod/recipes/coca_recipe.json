@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " C ",
+    "RRR",
+    "SWS"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "W": {
+      "item": "minecraft:potion",
+      "remainder": {
+        "item": "minecraft:glass_bottle"
+      }
+    }
+  },
+  "result": {
+    "item": "sedmod:coca"
+  }
+}
