@@ -17,6 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import net.eljovenxd.sedmod.networking.ModMessages;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(SedMod.MOD_ID)
@@ -36,6 +37,8 @@ public class SedMod {
 
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::addCreative);
+
+        ModMessages.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
