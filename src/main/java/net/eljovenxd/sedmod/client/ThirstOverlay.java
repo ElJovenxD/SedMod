@@ -21,20 +21,17 @@ public class ThirstOverlay {
             RenderSystem.setShaderTexture(0, THIRST_ICONS);
 
             int thirstLevel = thirst.getThirst();
-
-            // --- POSICIÓN CORREGIDA ---
-            // Movemos la barra 1 píxel hacia arriba para la alineación vertical perfecta.
             int y = height - 50;
 
             for (int i = 0; i < 10; i++) {
-                // Corregimos el cálculo de 'x' para alinear los íconos horizontalmente.
                 int x = (width / 2) + 82 - (i * 8);
 
                 // Dibuja el fondo gris de la gota
                 guiGraphics.blit(THIRST_ICONS, x, y, 9, 0, 9, 9, 18, 81);
 
-                // Dibuja la gota azul si corresponde (lógica de llenado de izquierda a derecha)
-                if (thirstLevel > (9 - i) * 2) {
+                // --- ESTA ES LA LÓGICA CORREGIDA ---
+                // Con esta condición, la barra se vaciará de izquierda a derecha.
+                if (thirstLevel > i * 2) {
                     guiGraphics.blit(THIRST_ICONS, x, y, 0, 0, 9, 9, 18, 81);
                 }
             }

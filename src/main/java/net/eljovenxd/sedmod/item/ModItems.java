@@ -15,14 +15,23 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, SedMod.MOD_ID);
 
     public static final RegistryObject<Item> COCA = ITEMS.register("coca",
-            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f)
-                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F).build())));
+            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder()
+                    .nutrition(1).saturationMod(0.1f)
+                    .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F)
+                    .alwaysEat() // <-- AÑADE ESTA LÍNEA
+                    .build())));
 
     public static final RegistryObject<Item> PEPSI = ITEMS.register("pepsi",
-            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.1f).build())));
+            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder()
+                    .nutrition(1).saturationMod(0.1f)
+                    .alwaysEat() // <-- AÑADE ESTA LÍNEA
+                    .build())));
 
     public static final RegistryObject<Item> AGUA = ITEMS.register("agua",
-            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.3f).build())));
+            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder()
+                    .nutrition(2).saturationMod(0.3f)
+                    .alwaysEat() // <-- AÑADE ESTA LÍNEA
+                    .build())));
 
 
     public static void register(IEventBus eventBus){

@@ -50,7 +50,9 @@ public class ModEvents {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer()) {
             Player player = event.player;
-            if (player.level().getGameTime() % 200 == 0) { // Cada 10 segundos
+            // --- CAMBIO AQUÍ: DE 200 A 400 ---
+            // Ahora la sed bajará cada 20 segundos.
+            if (player.level().getGameTime() % 400 == 0) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     if (thirst.getThirst() > 0) {
                         thirst.removeThirst(1);
