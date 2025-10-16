@@ -9,6 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -78,22 +81,31 @@ public class ModEvents {
             Player player = (Player) event.getEntity();
             ItemStack itemStack = event.getItem();
 
+            // --- LÓGICA PARA TUS ITEMS PERSONALIZADOS ---
             if (itemStack.is(ModItems.AGUA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(5);
-                    thirst.addThirstSaturation(6.0F); // <-- AÑADE SATURACIÓN
+                    thirst.addThirst(5); // Tu agua: 5 sed
+                    thirst.addThirstSaturation(6.0F); // Tu agua: 6.0 saturación
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             } else if (itemStack.is(ModItems.COCA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(15);
-                    thirst.addThirstSaturation(12.0F); // <-- AÑADE SATURACIÓN
+                    thirst.addThirstSaturation(18.0F);
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             } else if (itemStack.is(ModItems.PEPSI.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(10);
-                    thirst.addThirstSaturation(9.0F); // <-- AÑADE SATURACIÓN
+                    thirst.addThirstSaturation(12.0F);
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                });
+            }
+            // --- NUEVA LÓGICA PARA EL AGUA DE MINECRAFT ---
+            else if (itemStack.is(Items.POTION) && PotionUtils.getPotion(itemStack) == Potions.WATER) {
+                player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
+                    thirst.addThirst(3); // La mitad de 5 (redondeado a 3)
+                    thirst.addThirstSaturation(3.0F); // La mitad de 6.0
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }
