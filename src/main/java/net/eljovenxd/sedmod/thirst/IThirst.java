@@ -5,4 +5,7 @@ public interface IThirst {
     void setThirst(int thirst);
     void addThirst(int thirst);
     void removeThirst(int thirst);
+    float getThirstSaturation();
+    void setThirstSaturation(float saturation);
+    void addThirstSaturation(float saturation);
 }

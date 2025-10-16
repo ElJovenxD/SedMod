@@ -22,11 +22,17 @@ public class ThirstProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public CompoundTag serializeNBT() {
-        return ThirstStorage.saveNBTData(thirst);
+        CompoundTag nbt = new CompoundTag();
+        nbt.putInt("thirst", thirst.getThirst());
+        nbt.putFloat("thirstSaturation", thirst.getThirstSaturation()); // <-- AÑADE ESTO
+        return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        ThirstStorage.loadNBTData(nbt);
+        // --- CORRECCIÓN IMPORTANTE ---
+        // Carga los datos en la instancia existente en lugar de crear una nueva.
+        thirst.setThirst(nbt.getInt("thirst"));
+        thirst.setThirstSaturation(nbt.getFloat("thirstSaturation")); // <-- AÑADE ESTO
     }
 }

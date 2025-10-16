@@ -17,6 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 @Mod.EventBusSubscriber(modid = "sedmod")
 public class ModEvents {
@@ -50,16 +51,22 @@ public class ModEvents {
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer()) {
             Player player = event.player;
-            // --- CAMBIO AQUÍ: DE 200 A 400 ---
-            // Ahora la sed bajará cada 20 segundos.
-            if (player.level().getGameTime() % 400 == 0) {
+            // --- BAJA LA SED MÁS DESPACIO (CADA 30 SEGUNDOS) ---
+            if (player.level().getGameTime() % 600 == 0) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    if (thirst.getThirst() > 0) {
+                    // --- NUEVA LÓGICA DE SATURACIÓN ---
+                    if (thirst.getThirstSaturation() > 0) {
+                        // Si hay saturación, se gasta primero.
+                        thirst.setThirstSaturation(thirst.getThirstSaturation() - 1.0F);
+                    } else if (thirst.getThirst() > 0) {
+                        // Si no hay saturación, baja la sed.
                         thirst.removeThirst(1);
-                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                     } else {
+                        // Si la sed es cero, el jugador recibe daño.
                         player.hurt(player.damageSources().starve(), 1.0F);
                     }
+                    // Sincroniza los datos con el cliente.
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }
         }
@@ -73,17 +80,20 @@ public class ModEvents {
 
             if (itemStack.is(ModItems.AGUA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(5); // Aumenta 5 puntos de sed
+                    thirst.addThirst(5);
+                    thirst.addThirstSaturation(6.0F); // <-- AÑADE SATURACIÓN
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
-            } else if (itemStack.is(ModItems.COCA.get())) { // <-- AÑADE ESTO
+            } else if (itemStack.is(ModItems.COCA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(15); // Por ejemplo, 4 puntos
+                    thirst.addThirst(15);
+                    thirst.addThirstSaturation(12.0F); // <-- AÑADE SATURACIÓN
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
-            } else if (itemStack.is(ModItems.PEPSI.get())) { // <-- Y ESTO
+            } else if (itemStack.is(ModItems.PEPSI.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(10); // Por ejemplo, 4 puntos
+                    thirst.addThirst(10);
+                    thirst.addThirstSaturation(9.0F); // <-- AÑADE SATURACIÓN
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }
