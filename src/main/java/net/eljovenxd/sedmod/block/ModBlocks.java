@@ -30,11 +30,11 @@ public class ModBlocks {
     //Ores por agregar
     public static final RegistryObject<Block> PLASTICO_ORE = registryBlock("plastico_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
-                    .strength(1.5f).requiresCorrectToolForDrops(), UniformInt.of(4,7));
+                    .strength(1.5f).requiresCorrectToolForDrops(), UniformInt.of(4,7)));
 
     public static final RegistryObject<Block> DEEPSLATE_PLASTICO_ORE = registryBlock("deepslate_plastico_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.DEEPSLATE)
-                    .strength(4f).requiresCorrectToolForDrops(), UniformInt.of(4,7));
+                    .strength(4f).requiresCorrectToolForDrops(), UniformInt.of(4,7)));
 
     public static final RegistryObject<Block> ALUMINIO_ORE = registryBlock("aluminio_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
