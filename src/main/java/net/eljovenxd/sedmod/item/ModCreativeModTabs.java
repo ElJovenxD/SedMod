@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModCreativeTabs {
+public class ModCreativeModTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SedMod.MOD_ID);
 
@@ -24,6 +24,10 @@ public class ModCreativeTabs {
 
                         pOutput.accept(ModBlocks.CAJA_COCA.get());
                         pOutput.accept(ModBlocks.CAJA_PEPSI.get());
+                        pOutput.accept(ModBlocks.PLASTICO_ORE.get());
+                        pOutput.accept(ModBlocks.DEEPSLATE_PLASTICO_ORE.get());
+                        pOutput.accept(ModBlocks.ALUMINIO_ORE.get());
+                        pOutput.accept(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get());
 
                     })
                     .build());

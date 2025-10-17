@@ -2,9 +2,8 @@ package net.eljovenxd.sedmod;
 
 import com.mojang.logging.LogUtils;
 import net.eljovenxd.sedmod.block.ModBlocks;
-import net.eljovenxd.sedmod.item.ModCreativeTabs;
+import net.eljovenxd.sedmod.item.ModCreativeModTabs;
 import net.eljovenxd.sedmod.item.ModItems;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -28,7 +27,7 @@ public class SedMod {
     public SedMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModCreativeTabs.register(modEventBus);
+        ModCreativeModTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
