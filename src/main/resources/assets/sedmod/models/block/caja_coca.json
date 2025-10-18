@@ -1,6 +1,8 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "all": "sedmod:block/la-ola-de-cocacola"
+    "bottom": "sedmod:block/coca_abajo",
+    "top": "sedmod:block/coca_arriba",
+    "side": "sedmod:block/coca_lado"
   }
 }
