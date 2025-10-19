@@ -38,6 +38,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.ALUMINIO_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get());
 
+                        pOutput.accept(ModBlocks.SOUND_BLOCK.get());
+
                     })
                     .build());
 

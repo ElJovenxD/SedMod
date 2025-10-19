@@ -1,0 +1,11 @@
+{
+  "linkin_park_in_the_end": {
+    "sounds": [
+      {
+        "name": "sedmod:music/heavy_is_the_crown",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.sedmod.linkin_park_heavy_is_the_crown"
+  }
+}
