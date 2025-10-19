@@ -18,10 +18,19 @@ public class ModCreativeModTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.COCA.get()))
                     .title(Component.translatable("creativetab.tutorial_tab"))
                     .displayItems((pParameters, pOutput) -> {
+                        // Items
                         pOutput.accept(ModItems.COCA.get());
                         pOutput.accept(ModItems.PEPSI.get());
                         pOutput.accept(ModItems.AGUA.get());
+                        pOutput.accept(ModItems.METAL_DETECTOR.get());
 
+                        // Resources
+                        pOutput.accept(ModItems.PLASTICO_INGOT.get());
+                        pOutput.accept(ModItems.ALUMINIO_INGOT.get());
+                        pOutput.accept(ModItems.RAW_PLASTICO.get());
+                        pOutput.accept(ModItems.RAW_ALUMINIO.get());
+
+                        // Blocks
                         pOutput.accept(ModBlocks.CAJA_COCA.get());
                         pOutput.accept(ModBlocks.CAJA_PEPSI.get());
                         pOutput.accept(ModBlocks.PLASTICO_ORE.get());

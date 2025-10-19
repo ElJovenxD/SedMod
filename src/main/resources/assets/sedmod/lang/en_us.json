@@ -2,6 +2,11 @@
   "item.sedmod.coca": "Coca-Cola",
   "item.sedmod.pepsi": "Pepsi",
   "item.sedmod.agua": "Agua embotellada",
+  "item.sedmod.metal_detector": "Detector de metales",
+  "item.sedmod.plastico_ingot": "Lingote de Plastico",
+  "item.sedmod.aluminio_ingot": "Lingote de Aluminio",
+  "item.sedmod.raw_plastico": "Plastico Crudo",
+  "item.sedmod.raw_aluminio": "Aluminio Crudo",
 
   "block.sedmod.caja_coca": "Caja de Coca",
   "block.sedmod.caja_pepsi": "Caja de Pepsi",

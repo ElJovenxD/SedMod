@@ -16,10 +16,10 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent; // <-- IMPORTA ESTO
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 
 @Mod.EventBusSubscriber(modid = "sedmod")
@@ -38,8 +38,9 @@ public class ModEvents {
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             event.getOriginal().getCapability(ThirstStorage.THIRST).ifPresent(oldStore -> {
-                event.getOriginal().getCapability(ThirstStorage.THIRST).ifPresent(newStore -> {
+                event.getEntity().getCapability(ThirstStorage.THIRST).ifPresent(newStore -> {
                     newStore.setThirst(oldStore.getThirst());
+                    newStore.setThirstSaturation(oldStore.getThirstSaturation());
                 });
             });
         }
@@ -51,25 +52,51 @@ public class ModEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
+                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+            });
+        }
+    }
+
+    // --- ESTE ES EL NUEVO EVENTO AÑADIDO ---
+    @SubscribeEvent
+    public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            // La barra total es de 20. El 30% de 20 es 6.
+            player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
+                thirst.removeThirst(6);
+                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+            });
+        }
+    }
+
+    @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer()) {
             Player player = event.player;
-            // --- BAJA LA SED MÁS DESPACIO (CADA 30 SEGUNDOS) ---
-            if (player.level().getGameTime() % 600 == 0) {
+
+            // Lógica #1: Reducir la sed lentamente (cada 30 segundos)
+            if (player.level().getGameTime() % 600 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    // --- NUEVA LÓGICA DE SATURACIÓN ---
-                    if (thirst.getThirstSaturation() > 0) {
-                        // Si hay saturación, se gasta primero.
-                        thirst.setThirstSaturation(thirst.getThirstSaturation() - 1.0F);
-                    } else if (thirst.getThirst() > 0) {
-                        // Si no hay saturación, baja la sed.
-                        thirst.removeThirst(1);
-                    } else {
-                        // Si la sed es cero, el jugador recibe daño.
+                    if (thirst.getThirst() > 0) {
+                        if (thirst.getThirstSaturation() > 0) {
+                            thirst.setThirstSaturation(thirst.getThirstSaturation() - 1.0F);
+                        } else {
+                            thirst.removeThirst(1);
+                        }
+                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                    }
+                });
+            }
+
+            // Lógica #2: Aplicar daño rápidamente si la sed es cero (cada 4 segundos)
+            if (player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
+                player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
+                    if (thirst.getThirst() <= 0) {
                         player.hurt(player.damageSources().starve(), 1.0F);
                     }
-                    // Sincroniza los datos con el cliente.
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }
         }
@@ -77,15 +104,13 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void onPlayerFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
-        if (event.getEntity() instanceof Player && !event.getEntity().level().isClientSide()) {
-            Player player = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
             ItemStack itemStack = event.getItem();
 
-            // --- LÓGICA PARA TUS ITEMS PERSONALIZADOS ---
             if (itemStack.is(ModItems.AGUA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(5); // Tu agua: 5 sed
-                    thirst.addThirstSaturation(6.0F); // Tu agua: 6.0 saturación
+                    thirst.addThirst(5);
+                    thirst.addThirstSaturation(6.0F);
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             } else if (itemStack.is(ModItems.COCA.get())) {
@@ -101,11 +126,10 @@ public class ModEvents {
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }
-            // --- NUEVA LÓGICA PARA EL AGUA DE MINECRAFT ---
             else if (itemStack.is(Items.POTION) && PotionUtils.getPotion(itemStack) == Potions.WATER) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                    thirst.addThirst(3); // La mitad de 5 (redondeado a 3)
-                    thirst.addThirstSaturation(3.0F); // La mitad de 6.0
+                    thirst.addThirst(3);
+                    thirst.addThirstSaturation(3.0F);
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
                 });
             }

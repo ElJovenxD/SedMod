@@ -1,6 +1,7 @@
 package net.eljovenxd.sedmod.item;
 
 import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.item.custom.MetalDetectorItem;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -32,6 +33,21 @@ public class ModItems {
                     .nutrition(2).saturationMod(0.3f)
                     .alwaysEat() // <-- AÑADE ESTA LÍNEA
                     .build())));
+    public static final RegistryObject<Item> RAW_PLASTICO = ITEMS.register("raw_plastico",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> RAW_ALUMINIO = ITEMS.register("raw_aluminio",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> PLASTICO_INGOT = ITEMS.register("plastico_ingot",
+            () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> ALUMINIO_INGOT = ITEMS.register("aluminio_ingot",
+            () -> new Item(new Item.Properties()));
+    // ------------------------------------
+
+    public static final RegistryObject<Item> METAL_DETECTOR = ITEMS.register("metal_detector",
+            () -> new MetalDetectorItem(new Item.Properties().durability(100)));
 
 
     public static void register(IEventBus eventBus){

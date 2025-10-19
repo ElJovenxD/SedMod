@@ -2,17 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "SRS",
-    "SPS",
+    "   ",
+    " P ",
     "III"
   ],
   "key": {
-    "S": {
-      "item": "minecraft:sugar"
-    },
-    "R": {
-      "item": "minecraft:red_dye"
-    },
     "P": {
       "item": "minecraft:potion",
       "remainder": {
@@ -20,10 +14,10 @@
       }
     },
     "I": {
-      "item": "sedmod:aluminio_ingot"
+      "item": "sedmod:plastico_ingot"
     }
   },
   "result": {
-    "item": "sedmod:coca"
+    "item": "sedmod:agua"
   }
 }
