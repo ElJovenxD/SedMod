@@ -1,5 +1,6 @@
 package net.eljovenxd.sedmod.networking;
 
+import net.eljovenxd.sedmod.SedMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -17,7 +18,7 @@ public class ModMessages {
 
     public static void register() {
         SimpleChannel net = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation("sedmod", "messages"))
+                .named(new ResourceLocation(SedMod.MOD_ID, "messages"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
@@ -25,10 +26,18 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        // --- Paquete de Sed (ya estaba bien) ---
         net.messageBuilder(SyncThirstPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SyncThirstPacket::new)
                 .encoder(SyncThirstPacket::toBytes)
                 .consumerMainThread(SyncThirstPacket::handle)
+                .add();
+
+        // --- Paquete de Fatiga (AQUÍ ESTÁ LA CORRECCIÓN) ---
+        net.messageBuilder(SyncFatiguePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncFatiguePacket::new)
+                .encoder(SyncFatiguePacket::toBytes)
+                .consumerMainThread(SyncFatiguePacket::handle) // <<-- ESTA LÍNEA FALTABA
                 .add();
     }
 

@@ -3,10 +3,14 @@ package net.eljovenxd.sedmod.ModEvents;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.networking.ModMessages;
 import net.eljovenxd.sedmod.networking.SyncThirstPacket;
+import net.eljovenxd.sedmod.sleep.SleepProvider;
+import net.eljovenxd.sedmod.sleep.SleepStorage;
 import net.eljovenxd.sedmod.thirst.ThirstProvider;
 import net.eljovenxd.sedmod.thirst.ThirstStorage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -14,13 +18,15 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerWakeUpEvent; // <-- IMPORTA ESTO
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
 
 @Mod.EventBusSubscriber(modid = "sedmod")
 public class ModEvents {
@@ -30,6 +36,9 @@ public class ModEvents {
         if (event.getObject() instanceof Player) {
             if (!event.getObject().getCapability(ThirstStorage.THIRST).isPresent()) {
                 event.addCapability(new ResourceLocation("sedmod", "thirst"), new ThirstProvider());
+            }
+            if (!event.getObject().getCapability(SleepStorage.SLEEP).isPresent()) {
+                event.addCapability(new ResourceLocation("sedmod", "sleep"), new SleepProvider());
             }
         }
     }
@@ -43,12 +52,18 @@ public class ModEvents {
                     newStore.setThirstSaturation(oldStore.getThirstSaturation());
                 });
             });
+            event.getOriginal().getCapability(SleepStorage.SLEEP).ifPresent(oldStore -> {
+                event.getEntity().getCapability(SleepStorage.SLEEP).ifPresent(newStore -> {
+                    newStore.setFatigue(oldStore.getFatigue());
+                });
+            });
         }
     }
 
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         ThirstStorage.register(event);
+        SleepStorage.register(event);
     }
 
     @SubscribeEvent
@@ -57,10 +72,12 @@ public class ModEvents {
             player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                 ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
             });
+            player.getCapability(SleepStorage.SLEEP).ifPresent(sleep -> {
+                ModMessages.sendToPlayer(new SyncFatiguePacket(sleep.getFatigue()), player);
+            });
         }
     }
 
-    // --- ESTE ES EL NUEVO EVENTO AÑADIDO ---
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
@@ -68,6 +85,10 @@ public class ModEvents {
             player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                 thirst.removeThirst(6);
                 ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+            });
+            player.getCapability(SleepStorage.SLEEP).ifPresent(sleep -> {
+                sleep.addFatigue(100); // Restore all fatigue
+                ModMessages.sendToPlayer(new SyncFatiguePacket(sleep.getFatigue()), player);
             });
         }
     }
@@ -95,6 +116,30 @@ public class ModEvents {
             if (player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     if (thirst.getThirst() <= 0) {
+                        player.hurt(player.damageSources().starve(), 1.0F);
+                    }
+                });
+            }
+
+            // Sleep logic
+            if (player.level().getGameTime() % 1200 == 0 && !player.isCreative() && !player.isSpectator()) { // Every minute
+                player.getCapability(SleepStorage.SLEEP).ifPresent(sleep -> {
+                    if (sleep.getFatigue() > 0) {
+                        sleep.removeFatigue(1);
+                        ModMessages.sendToPlayer(new SyncFatiguePacket(sleep.getFatigue()), (ServerPlayer) player);
+                    }
+                });
+            }
+
+            if (player.level().getGameTime() % 100 == 0 && !player.isCreative() && !player.isSpectator()) { // Every 5 seconds
+                player.getCapability(SleepStorage.SLEEP).ifPresent(sleep -> {
+                    if (sleep.getFatigue() <= 20) {
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 120, 0));
+                    }
+                    if (sleep.getFatigue() <= 10) {
+                        player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 120, 0));
+                    }
+                    if (sleep.getFatigue() == 0) {
                         player.hurt(player.damageSources().starve(), 1.0F);
                     }
                 });
@@ -134,5 +179,9 @@ public class ModEvents {
                 });
             }
         }
+    }
+    @SubscribeEvent
+    public static void onCommandsRegister(RegisterCommandsEvent event) {
+        ModCommands.register(event.getDispatcher());
     }
 }
