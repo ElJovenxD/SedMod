@@ -23,6 +23,8 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.PEPSI.get());
                         pOutput.accept(ModItems.AGUA.get());
                         pOutput.accept(ModItems.METAL_DETECTOR.get());
+                        pOutput.accept(ModItems.MARUCHAN.get());
+                        pOutput.accept(ModItems.LATA_COMBUSTIBLE.get());
 
                         // Resources
                         pOutput.accept(ModItems.PLASTICO_INGOT.get());
@@ -37,6 +39,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.DEEPSLATE_PLASTICO_ORE.get());
                         pOutput.accept(ModBlocks.ALUMINIO_ORE.get());
                         pOutput.accept(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get());
+                        pOutput.accept(ModBlocks.SOUND_BLOCK.get());
 
                     })
                     .build());

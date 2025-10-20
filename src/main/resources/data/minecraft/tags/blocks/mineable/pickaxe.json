@@ -5,6 +5,7 @@
     "sedmod:plastico_ore",
     "sedmod:deepslate_plastico_ore",
     "sedmod:aluminio_ore",
-    "sedmod:deepslate_aluminio_ore"
+    "sedmod:deepslate_aluminio_ore",
+    "sedmod:sound_block"
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "ACA",
+    " A "
+  ],
+  "key": {
+    "P": {
+      "item": "sedmod:plastico_ingot"
+    },
+    "A": {
+      "item": "sedmod:aluminio_ingot"
+    },
+    "C": {
+      "tag": "minecraft:coals"
+    }
+  },
+  "result": {
+    "item": "sedmod:lata_combustible",
+    "count": 1
+  }
+}

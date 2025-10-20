@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "PBP",
+    " P "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:wheat"
+    },
+    "P": {
+      "item": "sedmod:plastico_ingot"
+    },
+    "B": {
+      "item": "minecraft:potion"
+    }
+  },
+  "result": {
+    "item": "sedmod:maruchan",
+    "count": 1
+  }
+}
