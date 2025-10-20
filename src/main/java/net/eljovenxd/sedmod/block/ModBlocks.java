@@ -1,7 +1,6 @@
 package net.eljovenxd.sedmod.block;
 
 import net.eljovenxd.sedmod.SedMod;
-import net.eljovenxd.sedmod.block.custom.SoundBlock;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
@@ -45,9 +44,6 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
                     .strength(5f).requiresCorrectToolForDrops(), UniformInt.of(3,6)));
     //Aqui terminan los ores pendientes
-
-    public static final RegistryObject<Block> SOUND_BLOCK = registryBlock("sound_block",
-            () -> new SoundBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
 
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
