@@ -1,5 +1,6 @@
 package net.eljovenxd.sedmod.item.custom;
 
+import net.eljovenxd.sedmod.util.ModTags;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -11,7 +12,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,12 +58,12 @@ public class MetalDetectorItem extends Item {
     }
 
     private void outputValuableCoordinate(BlockPos blockPos, Player player, Block block) {
-        player.sendSystemMessage(Component.literal("Encontrado " + I18n.get(block.getDescriptionId()) + "en " +
+        player.sendSystemMessage(Component.literal("Encontrado " + I18n.get(block.getDescriptionId()) + " en " +
                 "(" + blockPos.getX() + ", " + blockPos.getY() + ", " + blockPos.getZ() + ")"));
 
     }
 
     private boolean isValuableBlock(BlockState state) {
-        return state.is(Blocks.IRON_ORE) || state.is(Blocks.DIAMOND_ORE);
+        return state.is(ModTags.Blocks.METAL_DETECTOR_VALUABLES);
     }
 }
