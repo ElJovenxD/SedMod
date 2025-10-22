@@ -30,7 +30,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get());
         this.dropSelf(ModBlocks.PLASTICO_ORE.get());
         this.dropSelf(ModBlocks.ALUMINIO_ORE.get());
-        //this.dropSelf(ModBlocks.SOUND_BLOCK.get());
 
         this.add(ModBlocks.PLASTICO_ORE.get(),
                 block -> createCopperLikeOreDrops(ModBlocks.PLASTICO_ORE.get(), ModItems.RAW_PLASTICO.get()));
