@@ -1,27 +1,38 @@
 {
-  "item.sedmod.coca": "Coca-Cola",
-  "item.sedmod.pepsi": "Pepsi",
-  "item.sedmod.agua": "Agua embotellada",
-  "item.sedmod.metal_detector": "Detector de metales",
-  "item.sedmod.plastico_ingot": "Lingote de Plastico",
-  "item.sedmod.aluminio_ingot": "Lingote de Aluminio",
-  "item.sedmod.raw_plastico": "Plastico Crudo",
-  "item.sedmod.raw_aluminio": "Aluminio Crudo",
+  "item.sedmod.raw_plastico": "Raw Plastico",
+  "item.sedmod.plastico_ingot": "Plastico Ingot",
+  "item.sedmod.metal_detector": "Metal Detector",
   "item.sedmod.maruchan": "Maruchan",
-  "item.sedmod.lata_combustible": "Lata de combustible",
+  "item.sedmod.coca": "Coca",
+  "item.sedmod.pepsi": "Pepsi",
+  "item.sedmod.agua": "Agua",
+  "item.sedmod.lata_combustible": "Lata Combustible",
 
+  "block.sedmod.sound_block": "Sound Block",
+  "block.sedmod.plastico_ore": "Plastico Ore",
+  "block.sedmod.deepslate_plastico_ore": "Deepslate Plastico Ore",
   "block.sedmod.caja_coca": "Caja de Coca",
   "block.sedmod.caja_pepsi": "Caja de Pepsi",
 
-  "block.sedmod.plastico_ore": "Plastico ore",
-  "block.sedmod.deepslate_plastico_ore": "Deepslate Plastico ore",
-  "block.sedmod.aluminio_ore": "Aluminio ore",
-  "block.sedmod.deepslate_aluminio_ore": "Deepslate aluminio ore",
+  "creativetab.sed_tab": "Sed Mod Tab",
 
-  "block.sedmod.sound_block": "Bloque de Sonido",
-  "subtitles.sedmod.linkin_park_heavy_is_the_crown": "Esta es la ñonga de Don Juan",
+  "itemGroup.sed_tab": "Sed Mod Tab",
+  "key.sedmod.drink_water": "Drink Water",
+  "key.category.sedmod": "Sed Mod",
 
-  "tooltip.sedmod.metal_detector.tooltip": "Encuentra hierro y diamantes!",
+  "commands.thirst.set.success": "Set thirst to %s for %s",
 
-  "creativetab.tutorial_tab": "ModSed Tab"
+  "drink.bar.full": "Thirst bar is full!",
+  "drink.bar.add": "Drank! Added %s thirst",
+
+  "tooltip.sedmod.metal_detector.no_valuables": "No Valuables Found",
+  "tooltip.sedmod.metal_detector.found_valuables": "Found Valuables!",
+
+  "sounds.sedmod.metal_detector_found_ore": "Metal detector beeps",
+  "sounds.sedmod.heavy_is_the_crown": "Heavy is the Crown",
+
+  "block.sedmod.aluminio_ore": "Aluminio Ore",
+  "block.sedmod.deepslate_aluminio_ore": "Deepslate Aluminio Ore",
+  "item.sedmod.raw_aluminio": "Raw Aluminio",
+  "item.sedmod.aluminio_ingot": "Aluminio Ingot"
 }

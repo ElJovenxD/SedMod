@@ -3,9 +3,6 @@ package net.eljovenxd.sedmod.datagen;
 import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
@@ -17,17 +14,32 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        // Items simples
         simpleItem(ModItems.RAW_PLASTICO);
         simpleItem(ModItems.PLASTICO_INGOT);
+        simpleItem(ModItems.MARUCHAN);
+        simpleItem(ModItems.COCA);
+        simpleItem(ModItems.PEPSI);
+        simpleItem(ModItems.AGUA);
+        simpleItem(ModItems.LATA_COMBUSTIBLE);
+
+        // --- Items de Aluminio ---
         simpleItem(ModItems.RAW_ALUMINIO);
         simpleItem(ModItems.ALUMINIO_INGOT);
-        simpleItem(ModItems.METAL_DETECTOR);
-        simpleItem(ModItems.MARUCHAN);
+
+        // Items con modelo custom (Handheld)
+        handheldItem(ModItems.METAL_DETECTOR);
     }
 
-    private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
-        return withExistingParent(item.getId().getPath(),
-                new ResourceLocation("item/generated")).texture("layer0",
-                new ResourceLocation(SedMod.MOD_ID, "item/" + item.getId().getPath()));
+    private void simpleItem(RegistryObject<?> item) {
+        withExistingParent(item.getId().getPath(),
+                "item/generated").texture("layer0",
+                modLoc("item/" + item.getId().getPath()));
+    }
+
+    private void handheldItem(RegistryObject<?> item) {
+        withExistingParent(item.getId().getPath(),
+                "item/handheld").texture("layer0",
+                modLoc("item/" + item.getId().getPath())); // <-- Sin la 'J'
     }
 }
