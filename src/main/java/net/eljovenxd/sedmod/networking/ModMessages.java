@@ -1,5 +1,9 @@
 package net.eljovenxd.sedmod.networking;
 
+// --- AÑADE ESTE IMPORT ---
+import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
+// --- FIN DEL IMPORT ---
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -25,11 +29,22 @@ public class ModMessages {
 
         INSTANCE = net;
 
+        // Paquete de Sed (Existente)
         net.messageBuilder(SyncThirstPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(SyncThirstPacket::new)
                 .encoder(SyncThirstPacket::toBytes)
                 .consumerMainThread(SyncThirstPacket::handle)
                 .add();
+
+        // --- ESTE ES EL BLOQUE CORREGIDO Y LIMPIO ---
+        // Paquete de Fatiga (Nuevo)
+        // (Asegúrate de haber movido tu archivo SyncFatiguePacket.java a esta carpeta "networking")
+        net.messageBuilder(SyncFatiguePacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(SyncFatiguePacket::new)
+                .encoder(SyncFatiguePacket::toBytes)
+                .consumerMainThread(SyncFatiguePacket::handle)
+                .add();
+        // --- FIN DEL BLOQUE CORREGIDO ---
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
