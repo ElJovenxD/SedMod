@@ -5,4 +5,11 @@ public interface IFatigue {
     void setFatigue(int fatigue);
     void addFatigue(int fatigue);
     void removeFatigue(int fatigue);
+
+    // --- AÑADE ESTOS MÉTODOS ---
+    long getLastSleepTime();
+    void setLastSleepTime(long time);
+    boolean isSleeping();
+    void setSleeping(boolean sleeping);
+    // --- FIN ---
 }

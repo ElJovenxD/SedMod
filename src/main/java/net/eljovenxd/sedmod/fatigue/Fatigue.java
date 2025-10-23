@@ -3,6 +3,11 @@ package net.eljovenxd.sedmod.fatigue;
 public class Fatigue implements IFatigue {
     private int fatigue = 20; // Valor inicial (máximo)
 
+    // --- AÑADE ESTOS CAMPOS ---
+    private long lastSleepTime = 0;
+    private boolean isSleeping = false;
+    // --- FIN ---
+
     @Override
     public int getFatigue() {
         return this.fatigue;
@@ -22,4 +27,26 @@ public class Fatigue implements IFatigue {
     public void removeFatigue(int fatigue) {
         this.setFatigue(this.fatigue - fatigue);
     }
+
+    // --- AÑADE ESTOS MÉTODOS ---
+    @Override
+    public long getLastSleepTime() {
+        return this.lastSleepTime;
+    }
+
+    @Override
+    public void setLastSleepTime(long time) {
+        this.lastSleepTime = time;
+    }
+
+    @Override
+    public boolean isSleeping() {
+        return this.isSleeping;
+    }
+
+    @Override
+    public void setSleeping(boolean sleeping) {
+        this.isSleeping = sleeping;
+    }
+    // --- FIN ---
 }
