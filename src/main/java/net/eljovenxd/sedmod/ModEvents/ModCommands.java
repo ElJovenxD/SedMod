@@ -21,7 +21,13 @@ public class ModCommands {
 
                                     player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                                         thirst.setThirst(level);
-                                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+                                        // --- LÍNEA CORREGIDA ---
+                                        // Ahora también establecemos la saturación al usar el comando
+                                        thirst.setThirstSaturation(level);
+                                        // Y enviamos ambos valores en el paquete
+                                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player);
+                                        // --- FIN DE LA CORRECCIÓN ---
+
                                         command.getSource().sendSuccess(() -> Component.literal("Nivel de sed establecido a " + level), true);
                                     });
 

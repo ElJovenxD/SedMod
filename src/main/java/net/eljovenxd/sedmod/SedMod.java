@@ -2,6 +2,9 @@ package net.eljovenxd.sedmod;
 
 import com.mojang.logging.LogUtils;
 import net.eljovenxd.sedmod.block.ModBlocks;
+// --- AÑADE ESTE IMPORT ---
+import net.eljovenxd.sedmod.ModEvents.ModCommands;
+// --- FIN DEL IMPORT ---
 import net.eljovenxd.sedmod.item.ModCreativeModTabs;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.sounds.ModSounds;
@@ -58,7 +61,10 @@ public class SedMod {
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-
+        // --- AÑADE ESTA LÍNEA ---
+        // Esto registra tu clase de comandos con el servidor de Minecraft
+        ModCommands.register(event.getServer().getCommands().getDispatcher());
+        // --- FIN DE LA CORRECCIÓN ---
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

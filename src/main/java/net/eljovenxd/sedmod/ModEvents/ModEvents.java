@@ -27,12 +27,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+// --- ASEGÚRATE DE TENER ESTE IMPORT ---
+import net.minecraft.world.entity.player.Player.BedSleepingProblem;
 
 @Mod.EventBusSubscriber(modid = "sedmod")
 public class ModEvents {
-
-    // ... (onAttachCapabilitiesPlayer, onPlayerCloned, onRegisterCapabilities, onPlayerLoggedIn se quedan igual) ...
-    // ... (No es necesario copiarlos de nuevo si no cambiaron) ...
 
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
@@ -49,15 +49,20 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
+            // Clonar Sed
             event.getOriginal().getCapability(ThirstStorage.THIRST).ifPresent(oldStore -> {
                 event.getEntity().getCapability(ThirstStorage.THIRST).ifPresent(newStore -> {
                     newStore.setThirst(oldStore.getThirst());
                     newStore.setThirstSaturation(oldStore.getThirstSaturation());
                 });
             });
+
+            // Clonar Fatiga (Corregido)
             event.getOriginal().getCapability(FatigueStorage.FATIGUE).ifPresent(oldStore -> {
                 event.getEntity().getCapability(FatigueStorage.FATIGUE).ifPresent(newStore -> {
                     newStore.setFatigue(oldStore.getFatigue());
+                    newStore.setLastSleepTime(oldStore.getLastSleepTime());
+                    newStore.setSleeping(oldStore.isSleeping());
                 });
             });
         }
@@ -73,7 +78,7 @@ public class ModEvents {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
-                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player);
             });
             player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                 ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player);
@@ -81,30 +86,47 @@ public class ModEvents {
         }
     }
 
+    // --- ESTE ES EL MÉTODO CORREGIDO ---
+    @SubscribeEvent
+    public static void onPlayerTrySleep(PlayerSleepInBedEvent event) {
+        Player player = event.getEntity();
 
-    // --- EVENTO MODIFICADO (CORRECCIÓN 1) ---
+        // Si no es de noche ni está tronando...
+        if (!player.level().isNight() && !player.level().isThundering()) {
+
+            // Permitir dormir incluso de día
+            event.setResult(PlayerSleepInBedEvent.Result.ALLOW);
+
+            // Opcional: hacer que el jugador se acueste inmediatamente
+            // (algunos mapeos necesitan esto para "forzar" el estado de dormir)
+            player.startSleeping(event.getPos());
+        }
+    }
+
+    // --- FIN DE LA CORRECCIÓN ---
+
+
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
 
             player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                 thirst.removeThirst(6);
-                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), player);
+                ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player);
             });
 
             player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
-                fatigue.setSleeping(false);
+                fatigue.setSleeping(false); // Marcar que ya no está durmiendo
 
                 long startTime = fatigue.getLastSleepTime();
                 long worldTime = player.level().getDayTime() % 24000;
                 boolean didSkipNight = worldTime < startTime;
 
-                // --- MECÁNICA 4: Dormir de día o ser despertado ---
+                // --- MECÁNICA: Dormir de día o ser despertado ---
                 if (!didSkipNight) {
-                    fatigue.setFatigue(20);
-                    // --- CORRECCIÓN 1: ESTE ERA EL PAQUETE INCORRECTO ---
+                    fatigue.setFatigue(20); // Recarga la barra
                     ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player);
-                    return;
+                    return; // No da bonificaciones
                 }
 
                 // --- LÓGICA DE BONIFICACIÓN POR NOCHE ---
@@ -129,19 +151,17 @@ public class ModEvents {
                     player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, effectDuration, 0));
                 }
 
-                // Sincroniza la fatiga (si no se hizo ya en el bloque de "dormir de día")
                 ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player);
             });
         }
     }
 
-    // --- EVENTO MODIFICADO (CORRECCIÓN 2) ---
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer()) {
             Player player = event.player;
 
-            // --- Lógica de Sed (Existente) ---
+            // --- Lógica de Sed ---
             if (player.level().getGameTime() % 600 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     if (thirst.getThirst() > 0) {
@@ -150,7 +170,7 @@ public class ModEvents {
                         } else {
                             thirst.removeThirst(1);
                         }
-                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                        ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                     }
                 });
             }
@@ -162,9 +182,8 @@ public class ModEvents {
                 });
             }
 
-            // --- LÓGICA DE FATIGA (MODIFICADA) ---
-
-            // Lógica #3: Reducir la fatiga lentamente (Se queda igual)
+            // --- LÓGICA DE FATIGA ---
+            // Reducir fatiga
             if (player.level().getGameTime() % 400 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     if (fatigue.getFatigue() > 0) {
@@ -174,17 +193,14 @@ public class ModEvents {
                 });
             }
 
-            // Lógica #4: Aplicar efectos y daño por fatiga (Se queda igual)
+            // Aplicar efectos y daño
             if (player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     int fatigueLevel = fatigue.getFatigue();
 
-                    // --- CORRECCIÓN 2: NO HACER DAÑO SI EL JUGADOR INTENTA DORMIR O BEBER ---
-                    // Esto soluciona los problemas 1 y 2.
                     if (fatigueLevel <= 0 && !player.isSleeping() && !player.isUsingItem()) {
                         player.hurt(player.damageSources().starve(), 1.0F);
                     }
-                    // --- FIN CORRECCIÓN 2 ---
 
                     else if (fatigueLevel <= 6) {
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false, true));
@@ -193,7 +209,7 @@ public class ModEvents {
                 });
             }
 
-            // LÓGICA #5: DETECTAR INICIO DE SUEÑO (Se queda igual)
+            // --- LÓGICA DE DETECTAR SUEÑO (AÑADIDA) ---
             player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                 if (player.isSleeping() && !fatigue.isSleeping()) {
                     fatigue.setSleeping(true);
@@ -212,26 +228,26 @@ public class ModEvents {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(5);
                     thirst.addThirstSaturation(6.0F);
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                 });
             } else if (itemStack.is(ModItems.COCA.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(15);
                     thirst.addThirstSaturation(18.0F);
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                 });
             } else if (itemStack.is(ModItems.PEPSI.get())) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(10);
                     thirst.addThirstSaturation(12.0F);
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                 });
             }
             else if (itemStack.is(Items.POTION) && PotionUtils.getPotion(itemStack) == Potions.WATER) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.addThirst(3);
                     thirst.addThirstSaturation(3.0F);
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst()), (ServerPlayer) player);
+                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                 });
             }
         }
