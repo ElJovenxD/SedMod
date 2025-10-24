@@ -4,6 +4,7 @@ import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.item.custom.FuelItem;
 import net.eljovenxd.sedmod.item.custom.MetalDetectorItem;
 import net.eljovenxd.sedmod.item.custom.ModFoods;
+import net.eljovenxd.sedmod.sounds.ModSounds; // --- AÑADE ESTA IMPORTACIÓN ---
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -22,19 +23,23 @@ public class ModItems {
                     .nutrition(1).saturationMod(0.1f)
                     .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200), 1.0F)
                     .alwaysEat()
-                    .build())));
+                    .build()),
+                    ModSounds.ERUPTO.get() // --- AÑADE ESTE PARÁMETRO ---
+            ));
 
     public static final RegistryObject<Item> PEPSI = ITEMS.register("pepsi",
-            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder()
+            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder() // Este no tendrá sonido
                     .nutrition(1).saturationMod(0.1f)
                     .alwaysEat()
                     .build())));
 
     public static final RegistryObject<Item> AGUA = ITEMS.register("agua",
-            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder()
+            () -> new DrinkItem(new Item.Properties().food(new FoodProperties.Builder() // Este tampoco
                     .nutrition(2).saturationMod(0.3f)
                     .alwaysEat()
                     .build())));
+
+    // ... (El resto de tu archivo sigue igual) ...
 
     public static final RegistryObject<Item> LATA_COMBUSTIBLE = ITEMS.register("lata_combustible",
             () -> new FuelItem(new Item.Properties(), 5000));

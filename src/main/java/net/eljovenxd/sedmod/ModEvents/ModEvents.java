@@ -1,12 +1,11 @@
 package net.eljovenxd.sedmod.ModEvents;
-
+import java.util.Random;
 import net.eljovenxd.sedmod.fatigue.FatigueProvider;
 import net.eljovenxd.sedmod.fatigue.FatigueStorage;
 import net.eljovenxd.sedmod.fatigue.IFatigue;
 import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
-import net.eljovenxd.sedmod.sounds.ModSounds; // --- CAMBIO (Asegurarse que esté importado) ---
-import net.minecraft.sounds.SoundSource; // --- CAMBIO (Asegurarse que esté importado) ---
-// --- CAMBIO (Import necesario para avanzar el tiempo) ---
+import net.eljovenxd.sedmod.sounds.ModSounds;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -18,6 +17,9 @@ import net.eljovenxd.sedmod.thirst.ThirstStorage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType; // --- NUEVA IMPORTACIÓN ---
+import net.minecraft.world.entity.monster.Creeper; // --- NUEVA IMPORTACIÓN ---
+import net.minecraft.world.entity.monster.Zombie; // --- NUEVA IMPORTACIÓN ---
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -25,19 +27,22 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent; // --- NUEVA IMPORTACIÓN ---
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
+import net.minecraftforge.event.level.ExplosionEvent; // --- NUEVA IMPORTACIÓN ---
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
-import net.minecraft.world.entity.player.Player.BedSleepingProblem;
 
 @Mod.EventBusSubscriber(modid = "sedmod")
 public class ModEvents {
 
-    // --- SIN CAMBIOS ---
+    // --- NUEVA CONSTANTE ---
+    private static final String HALLUCINATION_TAG = "SedModHallucination_Timer";
+
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
@@ -50,7 +55,6 @@ public class ModEvents {
         }
     }
 
-    // --- SIN CAMBIOS ---
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
@@ -70,14 +74,12 @@ public class ModEvents {
         }
     }
 
-    // --- SIN CAMBIOS ---
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         ThirstStorage.register(event);
         FatigueStorage.register(event);
     }
 
-    // --- SIN CAMBIOS ---
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
@@ -90,18 +92,31 @@ public class ModEvents {
         }
     }
 
-    // --- SIN CAMBIOS (Tu código aquí estaba correcto) ---
     @SubscribeEvent
     public static void onPlayerTrySleep(PlayerSleepInBedEvent event) {
         Player player = event.getEntity();
+
+        // Si es de día y no hay tormenta (condición para la siesta)
         if (!player.level().isNight() && !player.level().isThundering()) {
-            event.setResult(PlayerSleepInBedEvent.Result.ALLOW);
-            player.startSleeping(event.getPos());
+
+            // --- NUEVA REVISIÓN ---
+            // Revisa si hay monstruos hostiles cerca (lógica copiada de la clase Player)
+            if (!player.level().getEntitiesOfClass(net.minecraft.world.entity.monster.Monster.class,
+                    player.getBoundingBox().inflate(8.0D, 5.0D, 8.0D),
+                    (monster) -> monster.isPreventingPlayerRest(player)).isEmpty())
+            {
+                // Si hay monstruos, no dejes dormir y pon el resultado de vanilla
+                event.setResult(Player.BedSleepingProblem.NOT_SAFE);
+            } else {
+                // Si está despejado, permite la siesta
+                event.setResult(PlayerSleepInBedEvent.Result.ALLOW);
+                player.startSleeping(event.getPos());
+            }
+            // --- FIN DE LA REVISIÓN ---
         }
+        // Si es de noche, no hacemos nada y dejamos que Minecraft maneje el sueño normal.
     }
 
-
-    // --- CAMBIO GRANDE: Lógica de despertar ---
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
@@ -113,34 +128,24 @@ public class ModEvents {
                 long worldTime = player.level().getDayTime() % 24000;
                 boolean didSkipNight = worldTime < startTime;
 
-                // --- MECÁNICA: Siesta de día ---
                 if (!didSkipNight) {
-
-                    // 1. Sonido de Bostezo (como pediste)
                     player.level().playSound(null, player.blockPosition(), ModSounds.BOSTEZO.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 
-                    // 2. Avanzar el tiempo 2 horas (2000 ticks)
                     if (player.level() instanceof ServerLevel serverLevel) {
                         serverLevel.setDayTime(serverLevel.getDayTime() + 2000);
                     }
 
-                    // 3. Quitar Sed proporcional (1 punto)
                     player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                         thirst.removeThirst(1);
                         ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player);
                     });
 
-                    // 4. Añadir Fatiga proporcional (4 puntos = 2 lunas)
                     fatigue.addFatigue(4);
-                    // 5. Arreglar bug visual: Enviar paquete de fatiga AHORA
                     ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player);
 
-                    return; // Termina la siesta
+                    return;
                 }
 
-                // --- MECÁNICA: Dormir de Noche (Lógica anterior) ---
-
-                // Mover la pérdida de sed aquí, solo si duerme de noche
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     thirst.removeThirst(6);
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player);
@@ -166,24 +171,25 @@ public class ModEvents {
                     player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, effectDuration, 0));
                 }
 
-                // Enviar paquete de fatiga al despertar
                 ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player);
             });
         }
     }
-    // --- FIN DEL CAMBIO GRANDE ---
-
 
     // --- CAMBIO GRANDE: Lógica de Tick ---
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side.isServer()) {
             Player player = event.player;
+            ServerLevel level = (ServerLevel) player.level(); // --- VARIABLE NECESARIA ---
 
-            // --- CAMBIO: ELIMINADO EL BLOQUE if(player.isSleeping()) ---
-            // La lógica de "player.sleepCounter = 0" y la regeneración lenta
-            // se eliminaron porque eran incompatibles con avanzar el tiempo.
-            // Ahora la regeneración es instantánea al despertar (en onPlayerWakeUp).
+            // --- LÓGICA DE ALUCINACIONES (Cada tick) ---
+            // 1. Actualizar temporizador de alucinaciones existentes y eliminarlas si expiran
+            level.getEntities(EntityType.ZOMBIE, player.getBoundingBox().inflate(64.0), (e) -> e.getPersistentData().contains(HALLUCINATION_TAG))
+                    .forEach(zombie -> tickHallucination(zombie));
+            level.getEntities(EntityType.CREEPER, player.getBoundingBox().inflate(64.0), (e) -> e.getPersistentData().contains(HALLUCINATION_TAG))
+                    .forEach(creeper -> tickHallucination(creeper));
+            // --- FIN LÓGICA CADA TICK ---
 
             // --- Lógica de Sed (SIN CAMBIOS) ---
             if (player.level().getGameTime() % 600 == 0 && !player.isCreative() && !player.isSpectator()) {
@@ -206,8 +212,8 @@ public class ModEvents {
                 });
             }
 
-            // --- LÓGICA DE FATIGA (SIN CAMBIOS) ---
-            if (player.level().getGameTime() % 400 == 0 && !player.isCreative() && !player.isSpectator()) {
+            // --- LÓGICA DE FATIGA (AJUSTADA A 3000 TICKS) ---
+            if (player.level().getGameTime() % 3000 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     if (fatigue.getFatigue() > 0) {
                         fatigue.removeFatigue(1);
@@ -216,6 +222,7 @@ public class ModEvents {
                 });
             }
 
+            // --- LÓGICA DE EFECTOS POR FATIGA (Y ALUCINACIONES) ---
             if (player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     int fatigueLevel = fatigue.getFatigue();
@@ -225,8 +232,15 @@ public class ModEvents {
                     }
 
                     else if (fatigueLevel <= 6) {
+                        // Efectos de lentitud
                         player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, false, false, true));
                         player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 100, 0, false, false, true));
+
+                        // --- 2. Probabilidad de invocar alucinación ---
+                        // Una probabilidad de 1 en 10 cada 4 segundos (80 ticks)
+                        if (level.random.nextInt(10) == 0) { // <--- ¡AQUÍ ESTÁ EL CAMBIO!
+                            spawnHallucination(player);
+                        }
                     }
                 });
             }
@@ -240,10 +254,52 @@ public class ModEvents {
             });
         }
     }
-    // --- FIN DEL CAMBIO GRANDE ---
 
+    // --- NUEVO MÉTODO PRIVADO ---
+    private static void tickHallucination(Entity entity) {
+        int timer = entity.getPersistentData().getInt(HALLUCINATION_TAG);
+        if (timer <= 1) {
+            entity.discard(); // Elimina la entidad del mundo
+        } else {
+            entity.getPersistentData().putInt(HALLUCINATION_TAG, timer - 1);
+        }
+    }
 
-    // --- SIN CAMBIOS ---
+    // --- NUEVO MÉTODO PRIVADO (CORREGIDO) ---
+    private static void spawnHallucination(Player player) {
+        ServerLevel level = (ServerLevel) player.level();
+        // Random random = (Random) level.random; // <-- LÍNEA ELIMINADA
+
+        // Posición aleatoria cerca del jugador (entre 5 y 15 bloques de distancia)
+        double angle = level.random.nextDouble() * 2 * Math.PI; // <-- CAMBIO
+        double distance = 5 + level.random.nextDouble() * 10; // <-- CAMBIO
+        double x = player.getX() + Math.cos(angle) * distance;
+        double z = player.getZ() + Math.sin(angle) * distance;
+        double y = player.getY() + 1; // Un poco arriba para que no se atore
+
+        // 50% chance de Creeper, 50% de Zombie
+        if (level.random.nextBoolean()) { // <-- CAMBIO
+            Creeper creeper = new Creeper(EntityType.CREEPER, level);
+            creeper.setPos(x, y, z);
+            // Marcar como alucinación por 5 segundos (100 ticks)
+            creeper.getPersistentData().putInt(HALLUCINATION_TAG, 100);
+            level.addFreshEntity(creeper);
+        } else {
+            Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
+            zombie.setPos(x, y, z);
+            // Marcar como alucinación por 10 segundos (200 ticks)
+            zombie.getPersistentData().putInt(HALLUCINATION_TAG, 200);
+
+            // --- ¡EL TRUCO DE HEROBRINE! ---
+            // Quita su IA y hace que te mire fijamente
+            zombie.getBrain().removeAllBehaviors();
+            zombie.getLookControl().setLookAt(player, 180.0F, 180.0F);
+            // ---------------------------------
+
+            level.addFreshEntity(zombie);
+        }
+    }
+
     @SubscribeEvent
     public static void onPlayerFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {
@@ -274,6 +330,37 @@ public class ModEvents {
                     thirst.addThirstSaturation(3.0F);
                     ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), (ServerPlayer) player);
                 });
+            }
+        }
+    }
+
+    // --- NUEVO MÉTODO DE EVENTO ---
+    @SubscribeEvent
+    public static void onEntityAttack(LivingHurtEvent event) {
+        // Si la entidad que ataca (getSource().getEntity()) es un mob...
+        if (event.getSource().getEntity() instanceof Zombie || event.getSource().getEntity() instanceof Creeper) {
+            // ...y tiene nuestra etiqueta de alucinación...
+            if (event.getSource().getEntity().getPersistentData().contains(HALLUCINATION_TAG)) {
+                // ...cancela el daño.
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onExplosion(ExplosionEvent.Start event) {
+        // Comprueba si la entidad que explota (getExploder()) es un Creeper...
+        if (event.getExplosion().getExploder() instanceof Creeper creeper) { // <-- ¡ESTA LÍNEA ES LA CORRECCIÓN!
+
+            // ...y tiene nuestra etiqueta de alucinación...
+            if (creeper.getPersistentData().contains(HALLUCINATION_TAG)) {
+                // ...cancela la explosión (ni daño, ni agujeros).
+                event.setCanceled(true);
+
+                // (Opcional) Reproduce el sonido de explosión de todos modos para asustar
+                creeper.level().playSound(null, creeper.getX(), creeper.getY(), creeper.getZ(),
+                        net.minecraft.sounds.SoundEvents.GENERIC_EXPLODE,
+                        net.minecraft.sounds.SoundSource.HOSTILE, 4.0F, 1.0F);
             }
         }
     }

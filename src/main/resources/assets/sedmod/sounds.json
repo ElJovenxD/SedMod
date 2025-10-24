@@ -18,5 +18,11 @@
     "sounds": [
       "sedmod:bostezo"
     ]
+  },
+  "erupto": {
+    "subtitle": "sounds.sedmod.erupto",
+    "sounds": [
+      "sedmod:erupto"
+    ]
   }
 }

@@ -18,6 +18,9 @@ public class ModSounds {
     // --- AÑADE ESTA LÍNEA ---
     // 🥱 Sonido de bostezo
     public static final RegistryObject<SoundEvent> BOSTEZO = registerSoundEvent("bostezo");
+
+    // 💨 Sonido de eructo
+    public static final RegistryObject<SoundEvent> ERUPTO = registerSoundEvent("erupto");
     // --- FIN DE LA LÍNEA ---
 
     // 🎵 (Opcional) Sonido extra que ya tenías
