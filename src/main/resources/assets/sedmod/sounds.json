@@ -5,7 +5,18 @@
         "name": "sedmod:music/heavy_is_the_crown",
         "stream": true
       }
-    ],
-    "subtitle": "subtitles.sedmod.linkin_park_heavy_is_the_crown"
+    ]
+  },
+  "wake_up": {
+    "subtitle": "sounds.sedmod.wake_up",
+    "sounds": [
+      "sedmod:music/heavy_is_the_crown"
+    ]
+  },
+  "bostezo": {
+    "subtitle": "sounds.sedmod.bostezo",
+    "sounds": [
+      "sedmod:bostezo"
+    ]
   }
 }

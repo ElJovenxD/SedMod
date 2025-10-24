@@ -2,6 +2,7 @@ package net.eljovenxd.sedmod.block;
 
 import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.item.ModItems;
+import net.eljovenxd.sedmod.item.custom.SoundBlock;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -14,7 +15,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.eljovenxd.sedmod.block.custom.SoundBlock;
 
 
 import java.util.function.Supplier;

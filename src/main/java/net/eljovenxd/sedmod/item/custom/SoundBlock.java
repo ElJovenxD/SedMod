@@ -1,4 +1,4 @@
-package net.eljovenxd.sedmod.block.custom;
+package net.eljovenxd.sedmod.item.custom;
 
 import net.minecraft.core.BlockPos;
 import net.eljovenxd.sedmod.sounds.ModSounds;
