@@ -5,6 +5,7 @@ import net.eljovenxd.sedmod.block.ModBlocks;
 import net.eljovenxd.sedmod.util.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -25,6 +26,20 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get())
                 .add(ModBlocks.PLASTICO_ORE.get())
                 .add(ModBlocks.DEEPSLATE_PLASTICO_ORE.get())
-                .addTag(Tags.Blocks.ORES); // Esto añade "#forge:ores"
+                .addTag(Tags.Blocks.ORES);
+
+        this.tag(BlockTags.FENCES)
+                .add(ModBlocks.ALUMINIO_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES)
+                .add(ModBlocks.ALUMINIO_FENCE_GATE.get());
+        this.tag(BlockTags.WALLS)
+                .add(ModBlocks.ALUMINIO_WALL.get());
+
+        this.tag(BlockTags.FENCES)
+                .add(ModBlocks.PLASTICO_FENCE.get());
+        this.tag(BlockTags.FENCE_GATES)
+                .add(ModBlocks.PLASTICO_FENCE_GATE.get());
+        this.tag(BlockTags.WALLS)
+                .add(ModBlocks.PLASTICO_WALL.get());
     }
 }

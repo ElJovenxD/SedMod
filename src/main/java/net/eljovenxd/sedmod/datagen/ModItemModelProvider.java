@@ -1,10 +1,16 @@
 package net.eljovenxd.sedmod.datagen;
 
 import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.block.ModBlocks;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -14,32 +20,82 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        // Items simples
-        simpleItem(ModItems.RAW_PLASTICO);
-        simpleItem(ModItems.PLASTICO_INGOT);
-        simpleItem(ModItems.MARUCHAN);
+        // --- Items Simples ---
         simpleItem(ModItems.COCA);
         simpleItem(ModItems.PEPSI);
         simpleItem(ModItems.AGUA);
         simpleItem(ModItems.LATA_COMBUSTIBLE);
-
-        // --- Items de Aluminio ---
+        simpleItem(ModItems.MARUCHAN);
+        simpleItem(ModItems.RAW_PLASTICO);
         simpleItem(ModItems.RAW_ALUMINIO);
+        simpleItem(ModItems.PLASTICO_INGOT);
         simpleItem(ModItems.ALUMINIO_INGOT);
+        simpleItem(ModItems.METAL_DETECTOR);
 
-        // Items con modelo custom (Handheld)
-        handheldItem(ModItems.METAL_DETECTOR);
+        // --- Set de Plástico ---
+        simpleBlockItem(ModBlocks.PLASTICO_DOOR); // Item de puerta (usa textura .png)
+        fenceItem(ModBlocks.PLASTICO_FENCE, ModBlocks.PLASTICO_BLOCK);
+        buttonItem(ModBlocks.PLASTICO_BUTTON, ModBlocks.PLASTICO_BLOCK);
+        wallItem(ModBlocks.PLASTICO_WALL, ModBlocks.PLASTICO_BLOCK);
+
+        evenSimplerBlockItem(ModBlocks.PLASTICO_STAIRS); // Modelo de bloque existente
+        evenSimplerBlockItem(ModBlocks.PLASTICO_SLAB);
+        evenSimplerBlockItem(ModBlocks.PLASTICO_PRESSURE_PLATE);
+        evenSimplerBlockItem(ModBlocks.PLASTICO_FENCE_GATE);
+
+        trapdoorItem(ModBlocks.PLASTICO_TRAPDOOR); // Modelo especial _bottom
+
+        // --- Set de Aluminio ---
+        simpleBlockItem(ModBlocks.ALUMINIO_DOOR); // Item de puerta
+        fenceItem(ModBlocks.ALUMINIO_FENCE, ModBlocks.ALUMINIO_BLOCK);
+        buttonItem(ModBlocks.ALUMINIO_BUTTON, ModBlocks.ALUMINIO_BLOCK);
+        wallItem(ModBlocks.ALUMINIO_WALL, ModBlocks.ALUMINIO_BLOCK);
+
+        evenSimplerBlockItem(ModBlocks.ALUMINIO_STAIRS);
+        evenSimplerBlockItem(ModBlocks.ALUMINIO_SLAB);
+        evenSimplerBlockItem(ModBlocks.ALUMINIO_PRESSURE_PLATE);
+        evenSimplerBlockItem(ModBlocks.ALUMINIO_FENCE_GATE);
+
+        trapdoorItem(ModBlocks.ALUMINIO_TRAPDOOR);
     }
 
-    private void simpleItem(RegistryObject<?> item) {
-        withExistingParent(item.getId().getPath(),
-                "item/generated").texture("layer0",
-                modLoc("item/" + item.getId().getPath()));
+
+    // --- Métodos Helper (Copiados de tu ejemplo y adaptados) ---
+
+    private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(SedMod.MOD_ID,"item/" + item.getId().getPath()));
     }
 
-    private void handheldItem(RegistryObject<?> item) {
-        withExistingParent(item.getId().getPath(),
-                "item/handheld").texture("layer0",
-                modLoc("item/" + item.getId().getPath())); // <-- Sin la 'J'
+    public void evenSimplerBlockItem(RegistryObject<Block> block) {
+        this.withExistingParent(SedMod.MOD_ID + ":" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
+                modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath()));
+    }
+
+    public void trapdoorItem(RegistryObject<Block> block) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(),
+                modLoc("block/" + ForgeRegistries.BLOCKS.getKey(block.get()).getPath() + "_bottom"));
+    }
+
+    public void fenceItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/fence_inventory"))
+                .texture("texture",  new ResourceLocation(SedMod.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
+    public void buttonItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/button_inventory"))
+                .texture("texture",  new ResourceLocation(SedMod.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
+    public void wallItem(RegistryObject<Block> block, RegistryObject<Block> baseBlock) {
+        this.withExistingParent(ForgeRegistries.BLOCKS.getKey(block.get()).getPath(), mcLoc("block/wall_inventory"))
+                .texture("wall",  new ResourceLocation(SedMod.MOD_ID, "block/" + ForgeRegistries.BLOCKS.getKey(baseBlock.get()).getPath()));
+    }
+
+    private ItemModelBuilder simpleBlockItem(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(SedMod.MOD_ID,"item/" + item.getId().getPath()));
     }
 }

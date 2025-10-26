@@ -14,9 +14,15 @@
   "block.sedmod.caja_coca": "Caja de Coca",
   "block.sedmod.caja_pepsi": "Caja de Pepsi",
 
-  "creativetab.sed_tab": "Sed Mod Tab",
+  "block.sedmod.aluminio_ore": "Aluminio Ore",
+  "block.sedmod.deepslate_aluminio_ore": "Deepslate Aluminio Ore",
 
+  "item.sedmod.raw_aluminio": "Raw Aluminio",
+  "item.sedmod.aluminio_ingot": "Aluminio Ingot",
+
+  "creativetab.sed_tab": "Sed Mod Tab",
   "itemGroup.sed_tab": "Sed Mod Tab",
+
   "key.sedmod.drink_water": "Drink Water",
   "key.category.sedmod": "Sed Mod",
 
@@ -31,8 +37,28 @@
   "sounds.sedmod.metal_detector_found_ore": "Metal detector beeps",
   "sounds.sedmod.heavy_is_the_crown": "Heavy is the Crown",
 
-  "block.sedmod.aluminio_ore": "Aluminio Ore",
-  "block.sedmod.deepslate_aluminio_ore": "Deepslate Aluminio Ore",
-  "item.sedmod.raw_aluminio": "Raw Aluminio",
-  "item.sedmod.aluminio_ingot": "Aluminio Ingot"
+  "block.sedmod.aluminio_block": "Block of Aluminio",
+  "block.sedmod.plastico_block": "Block of Plastico",
+
+  "block.sedmod.plastico_block": "Block of Plastico",
+  "block.sedmod.plastico_stairs": "Plastico Stairs",
+  "block.sedmod.plastico_slab": "Plastico Slab",
+  "block.sedmod.plastico_button": "Plastico Button",
+  "block.sedmod.plastico_pressure_plate": "Plastico Pressure Plate",
+  "block.sedmod.plastico_fence": "Plastico Fence",
+  "block.sedmod.plastico_fence_gate": "Plastico Fence Gate",
+  "block.sedmod.plastico_wall": "Plastico Wall",
+  "block.sedmod.plastico_door": "Plastico Door",
+  "block.sedmod.plastico_trapdoor": "Plastico Trapdoor",
+
+  "block.sedmod.aluminio_block": "Block of Aluminio",
+  "block.sedmod.aluminio_stairs": "Aluminio Stairs",
+  "block.sedmod.aluminio_slab": "Aluminio Slab",
+  "block.sedmod.aluminio_button": "Aluminio Button",
+  "block.sedmod.aluminio_pressure_plate": "Aluminio Pressure Plate",
+  "block.sedmod.aluminio_fence": "Aluminio Fence",
+  "block.sedmod.aluminio_fence_gate": "Aluminio Fence Gate",
+  "block.sedmod.aluminio_wall": "Aluminio Wall",
+  "block.sedmod.aluminio_door": "Aluminio Door",
+  "block.sedmod.aluminio_trapdoor": "Aluminio Trapdoor"
 }

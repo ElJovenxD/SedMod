@@ -1,10 +1,12 @@
 package net.eljovenxd.sedmod;
 
 import com.mojang.logging.LogUtils;
+import net.eljovenxd.sedmod.ModEvents.ModEvents;
 import net.eljovenxd.sedmod.block.ModBlocks;
 // --- AÑADE ESTE IMPORT ---
 import net.eljovenxd.sedmod.ModEvents.ModCommands;
 // --- FIN DEL IMPORT ---
+import net.eljovenxd.sedmod.datagen.DataGenerators;
 import net.eljovenxd.sedmod.item.ModCreativeModTabs;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.sounds.ModSounds;
@@ -40,6 +42,9 @@ public class SedMod {
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
+
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
+
         modEventBus.addListener(this::addCreative);
 
         ModMessages.register();

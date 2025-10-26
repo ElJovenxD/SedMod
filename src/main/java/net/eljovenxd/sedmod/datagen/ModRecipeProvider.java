@@ -39,6 +39,35 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .requires(ModBlocks.CAJA_COCA.get())
                 .unlockedBy(getHasName(ModBlocks.CAJA_COCA.get()), has(ModBlocks.CAJA_COCA.get()))
                 .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ALUMINIO_BLOCK.get())
+                .pattern("AAA")
+                .pattern("AAA")
+                .pattern("AAA")
+                .define('A', ModItems.ALUMINIO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
+                .save(pWriter);
+
+        // Aluminio (1 bloque -> 9 lingotes)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.ALUMINIO_INGOT.get(), 9)
+                .requires(ModBlocks.ALUMINIO_BLOCK.get())
+                .unlockedBy(getHasName(ModBlocks.ALUMINIO_BLOCK.get()), has(ModBlocks.ALUMINIO_BLOCK.get()))
+                .save(pWriter);
+
+        // Bloque de Plástico (9 lingotes -> 1 bloque)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PLASTICO_BLOCK.get())
+                .pattern("PPP")
+                .pattern("PPP")
+                .pattern("PPP")
+                .define('P', ModItems.PLASTICO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.PLASTICO_INGOT.get()), has(ModItems.PLASTICO_INGOT.get()))
+                .save(pWriter);
+
+        // Plástico (1 bloque -> 9 lingotes)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.PLASTICO_INGOT.get(), 9)
+                .requires(ModBlocks.PLASTICO_BLOCK.get())
+                .unlockedBy(getHasName(ModBlocks.PLASTICO_BLOCK.get()), has(ModBlocks.PLASTICO_BLOCK.get()))
+                .save(pWriter);
     }
 
     protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {

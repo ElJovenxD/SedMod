@@ -23,10 +23,16 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        // --- ESTILO HIERRO (Aluminio) ---
-        // Esto crea el botín que suelta 1 ítem crudo + Fortuna
+        // --- Bloques Básicos (Que sueltan ellos mismos) ---
+        this.dropSelf(ModBlocks.SOUND_BLOCK.get());
+        this.dropSelf(ModBlocks.CAJA_COCA.get());
+        this.dropSelf(ModBlocks.CAJA_PEPSI.get());
+        this.dropSelf(ModBlocks.PLASTICO_BLOCK.get());
+        this.dropSelf(ModBlocks.ALUMINIO_BLOCK.get());
+
+        // --- Menas de Aluminio (Estilo Hierro) ---
         this.add(ModBlocks.ALUMINIO_ORE.get(),
-                (block) -> createSilkTouchDispatchTable(block,
+                block -> createSilkTouchDispatchTable(block,
                         this.applyExplosionDecay(block,
                                 LootItem.lootTableItem(ModItems.RAW_ALUMINIO.get())
                                         .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
@@ -34,7 +40,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 )
         );
         this.add(ModBlocks.DEEPSLATE_ALUMINIO_ORE.get(),
-                (block) -> createSilkTouchDispatchTable(block,
+                block -> createSilkTouchDispatchTable(block,
                         this.applyExplosionDecay(block,
                                 LootItem.lootTableItem(ModItems.RAW_ALUMINIO.get())
                                         .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))
@@ -42,22 +48,43 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 )
         );
 
-        // --- ESTILO COBRE (Plástico) ---
-        // Esto usa la función que suelta 2-5 ítems crudos + Fortuna
+        // --- Menas de Plástico (Estilo Cobre, como el ejemplo) ---
         this.add(ModBlocks.PLASTICO_ORE.get(),
-                (block) -> createCopperLikeOreDrops(ModBlocks.PLASTICO_ORE.get(), ModItems.RAW_PLASTICO.get()));
-
+                block -> createCopperLikeOreDrops(ModBlocks.PLASTICO_ORE.get(), ModItems.RAW_PLASTICO.get()));
         this.add(ModBlocks.DEEPSLATE_PLASTICO_ORE.get(),
-                (block) -> createCopperLikeOreDrops(ModBlocks.DEEPSLATE_PLASTICO_ORE.get(), ModItems.RAW_PLASTICO.get()));
+                block -> createCopperLikeOreDrops(ModBlocks.DEEPSLATE_PLASTICO_ORE.get(), ModItems.RAW_PLASTICO.get()));
 
 
-        // --- OTROS BLOQUES (Que sueltan ellos mismos) ---
-        this.dropSelf(ModBlocks.SOUND_BLOCK.get());
-        this.dropSelf(ModBlocks.CAJA_COCA.get());
-        this.dropSelf(ModBlocks.CAJA_PEPSI.get());
+        // --- Set de Plástico (Como el ejemplo de Sapphire) ---
+        this.dropSelf(ModBlocks.PLASTICO_STAIRS.get());
+        this.dropSelf(ModBlocks.PLASTICO_BUTTON.get());
+        this.dropSelf(ModBlocks.PLASTICO_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.PLASTICO_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.PLASTICO_FENCE.get());
+        this.dropSelf(ModBlocks.PLASTICO_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.PLASTICO_WALL.get());
+
+        this.add(ModBlocks.PLASTICO_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.PLASTICO_SLAB.get()));
+        this.add(ModBlocks.PLASTICO_DOOR.get(),
+                block -> createDoorTable(ModBlocks.PLASTICO_DOOR.get()));
+
+        // --- Set de Aluminio (Como el ejemplo de Sapphire) ---
+        this.dropSelf(ModBlocks.ALUMINIO_STAIRS.get());
+        this.dropSelf(ModBlocks.ALUMINIO_BUTTON.get());
+        this.dropSelf(ModBlocks.ALUMINIO_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.ALUMINIO_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.ALUMINIO_FENCE.get());
+        this.dropSelf(ModBlocks.ALUMINIO_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.ALUMINIO_WALL.get());
+
+        this.add(ModBlocks.ALUMINIO_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.ALUMINIO_SLAB.get()));
+        this.add(ModBlocks.ALUMINIO_DOOR.get(),
+                block -> createDoorTable(ModBlocks.ALUMINIO_DOOR.get()));
     }
 
-    // ESTA FUNCIÓN ES PARA ESTILO COBRE (2-5 ítems)
+    // --- Helper de Estilo Cobre (Igual que el ejemplo) ---
     protected LootTable.Builder createCopperLikeOreDrops(Block pBlock, Item pItem) {
         return createSilkTouchDispatchTable(pBlock,
                 this.applyExplosionDecay(pBlock,
