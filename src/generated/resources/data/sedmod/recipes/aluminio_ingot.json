@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "sedmod:aluminio_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "sedmod:aluminio_ingot"
+  }
+}

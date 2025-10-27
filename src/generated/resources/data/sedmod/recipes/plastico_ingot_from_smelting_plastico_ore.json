@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "plastico_ingot",
+  "ingredient": {
+    "item": "sedmod:plastico_ore"
+  },
+  "result": "sedmod:plastico_ingot"
+}
