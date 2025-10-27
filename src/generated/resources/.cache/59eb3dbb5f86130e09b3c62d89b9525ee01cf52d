@@ -1,4 +1,5 @@
-// 1.20.1	2025-10-26T19:26:39.649749	Loot Tables
+// 1.20.1	2025-10-26T20:20:23.496437	Loot Tables
+ab44f3d02badb76d642da4a0a2f9e99f64c52285 data/sedmod/loot_tables/blocks/alciplaotimimio_trapdoor.json
 8db7f2cbd8d0363678979b62ecf61425954cbde6 data/sedmod/loot_tables/blocks/aluminio_block.json
 ccf96e0d961dab290a038e7663b303b6d6cc5a14 data/sedmod/loot_tables/blocks/aluminio_button.json
 04fa91a226554ebf0126b5237af5777ff49f55f2 data/sedmod/loot_tables/blocks/aluminio_door.json
@@ -8,7 +9,6 @@ ccf96e0d961dab290a038e7663b303b6d6cc5a14 data/sedmod/loot_tables/blocks/aluminio
 b88c2b289178b0c53a0ff6282f9e088451079454 data/sedmod/loot_tables/blocks/aluminio_pressure_plate.json
 1bd7e06c4e0632a016e213f94a79b34e35c08f11 data/sedmod/loot_tables/blocks/aluminio_slab.json
 8995d51ab6045cd9d7a8a4ae6c383b09bc941b18 data/sedmod/loot_tables/blocks/aluminio_stairs.json
-923979b9ded14c96b807aafac3eb5c6d2ebd2af9 data/sedmod/loot_tables/blocks/aluminio_trapdoor.json
 7c1c1fb594ab1bb1f3f6fcf019f53a35599b753a data/sedmod/loot_tables/blocks/aluminio_wall.json
 e016136c032172f664a0d4debb688d99a27140e1 data/sedmod/loot_tables/blocks/caja_coca.json
 e6f9939e7fccaf4ba70b150f451ecf8cbc82f492 data/sedmod/loot_tables/blocks/caja_pepsi.json

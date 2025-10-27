@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "redstone",
   "key": {
-    "#": {
+    "I": {
       "item": "sedmod:plastico_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "SIS",
+    "SIS"
   ],
   "result": {
-    "item": "sedmod:plastico_block"
+    "item": "sedmod:plastico_fence_gate"
   },
   "show_notification": true
 }

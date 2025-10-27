@@ -1,0 +1,19 @@
+{
+  "values": [
+    "sedmod:plastico_ore",
+    "sedmod:deepslate_plastico_ore",
+    "sedmod:aluminio_ore",
+    "sedmod:deepslate_aluminio_ore",
+    "sedmod:plastico_block",
+    "sedmod:aluminio_block",
+    "sedmod:plastico_stairs",
+    "sedmod:plastico_slab",
+    "sedmod:plastico_wall",
+    "sedmod:aluminio_stairs",
+    "sedmod:aluminio_slab",
+    "sedmod:aluminio_wall",
+    "sedmod:sound_block",
+    "sedmod:caja_coca",
+    "sedmod:caja_pepsi"
+  ]
+}

@@ -1,5 +1,6 @@
-// 1.20.1	2025-10-26T19:26:39.6528256	Item Models: sedmod
+// 1.20.1	2025-10-26T20:20:23.4984431	Item Models: sedmod
 c450dcc3038d7df833c5b5957b4d6a2c31fdcfb1 assets/sedmod/models/item/agua.json
+363368cf40b015c25ba7b32ed6bafdf68de752b2 assets/sedmod/models/item/alciplaotimimio_trapdoor.json
 d10510967bfc84b268417e4c9a4705551f849694 assets/sedmod/models/item/aluminio_button.json
 f4fda3611defe6aea4bd3e7d8f92a6cc84f44d3a assets/sedmod/models/item/aluminio_door.json
 ae1d1f7415795e93f688144d44551183688258be assets/sedmod/models/item/aluminio_fence.json
@@ -8,7 +9,6 @@ a7fdcb0ce8422593e33a3209a3e1e580da30a9a7 assets/sedmod/models/item/aluminio_ingo
 48bcc5168ee4058047641cc56b59ca25e312b63a assets/sedmod/models/item/aluminio_pressure_plate.json
 8184c358583a8db9a3446001fbec83455a7a2954 assets/sedmod/models/item/aluminio_slab.json
 4be4d236558edcb3642ad62f02e2a4a44941e345 assets/sedmod/models/item/aluminio_stairs.json
-459e9c09f522d6d404955e26ad0bb580dce526ac assets/sedmod/models/item/aluminio_trapdoor.json
 445b3e66c85a08f06fd2f5059ae527d0e64b9ea9 assets/sedmod/models/item/aluminio_wall.json
 e65aaf6f54e768ee07212b5613af5e77de991da9 assets/sedmod/models/item/coca.json
 7c28478ef31063001ef87c83acc5b82b3caa4fe4 assets/sedmod/models/item/lata_combustible.json

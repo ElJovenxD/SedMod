@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "redstone",
   "key": {
-    "#": {
+    "I": {
       "item": "sedmod:aluminio_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "SIS",
+    "SIS"
   ],
   "result": {
-    "item": "sedmod:aluminio_block"
+    "item": "sedmod:aluminio_fence_gate"
   },
   "show_notification": true
 }

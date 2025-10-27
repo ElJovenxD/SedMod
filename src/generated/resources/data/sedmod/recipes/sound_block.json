@@ -1,18 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
   "key": {
-    "#": {
+    "I": {
       "item": "sedmod:aluminio_ingot"
+    },
+    "N": {
+      "item": "minecraft:note_block"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "III",
+    "INI",
+    "III"
   ],
   "result": {
-    "item": "sedmod:aluminio_block"
+    "item": "sedmod:sound_block"
   },
   "show_notification": true
 }

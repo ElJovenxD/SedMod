@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_aluminio": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sedmod:raw_aluminio"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:aluminio_ingot_from_blasting_raw_aluminio"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_aluminio",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:aluminio_ingot_from_blasting_raw_aluminio"
+    ]
+  },
+  "sends_telemetry_event": false
+}

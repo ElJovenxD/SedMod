@@ -24,10 +24,10 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, SedMod.MOD_ID);
 
     public static final RegistryObject<Block> CAJA_COCA = registryBlock("caja_coca",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.GLASS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> CAJA_PEPSI = registryBlock("caja_pepsi",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.GLASS)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.GLASS).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PLASTICO_ORE = registryBlock("plastico_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.copy(Blocks.STONE)
@@ -47,81 +47,82 @@ public class ModBlocks {
                     .strength(5f).requiresCorrectToolForDrops(), UniformInt.of(3,6)));
 
     public static final RegistryObject<Block> PLASTICO_BLOCK = registryBlock("plastico_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.BONE_BLOCK)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ALUMINIO_BLOCK = registryBlock("aluminio_block",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.BONE_BLOCK)));
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops()));
 
     //Escaleras y demas items del plastico
     public static final RegistryObject<Block> PLASTICO_STAIRS = registryBlock("plastico_stairs",
-            () -> new StairBlock(() -> ModBlocks.PLASTICO_BLOCK.get().defaultBlockState(), // <-- CAMBIA ESTO
-                    (BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK))));
+            () -> new StairBlock(() -> ModBlocks.PLASTICO_BLOCK.get().defaultBlockState(),
+                    (BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops())));
 
     public static final RegistryObject<Block> PLASTICO_SLAB = registryBlock("plastico_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PLASTICO_BUTTON = registryBlock("plastico_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).sound(SoundType.BONE_BLOCK),
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops(),
                     BlockSetType.IRON, 10, true));
 
     public static final RegistryObject<Block> PLASTICO_PRESSURE_PLATE = registryBlock("plastico_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK),
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops(),
                     BlockSetType.IRON));
 
     public static final RegistryObject<Block> PLASTICO_FENCE = registryBlock("plastico_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK)));
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PLASTICO_FENCE_GATE = registryBlock("plastico_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops(), SoundEvents.CHAIN_PLACE, SoundEvents.ANVIL_BREAK));
 
     public static final RegistryObject<Block> PLASTICO_WALL = registryBlock("plastico_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> PLASTICO_DOOR = registryBlock("plastico_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK), BlockSetType.IRON));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops(), BlockSetType.IRON));
 
     public static final RegistryObject<Block> PLASTICO_TRAPDOOR = registryBlock("plastico_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.STONE).sound(SoundType.BONE_BLOCK), BlockSetType.IRON));
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).sound(SoundType.BONE_BLOCK).requiresCorrectToolForDrops(), BlockSetType.IRON));
 
     //Escaleras y demas items del aluminio
 
     public static final RegistryObject<Block> ALUMINIO_STAIRS = registryBlock("aluminio_stairs",
             () -> new StairBlock(() -> ModBlocks.ALUMINIO_BLOCK.get().defaultBlockState(),
-                    (BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)))); // Copia propiedades de Hierro
+                    (BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()))); // Copia propiedades de Hierro
 
     public static final RegistryObject<Block> ALUMINIO_SLAB = registryBlock("aluminio_slab",
-            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ALUMINIO_BUTTON = registryBlock("aluminio_button",
-            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON),
+            () -> new ButtonBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BUTTON).requiresCorrectToolForDrops(),
                     BlockSetType.IRON, 10, true));
 
     public static final RegistryObject<Block> ALUMINIO_PRESSURE_PLATE = registryBlock("aluminio_pressure_plate",
-            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK),
+            () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(),
                     BlockSetType.IRON));
 
     public static final RegistryObject<Block> ALUMINIO_FENCE = registryBlock("aluminio_fence",
-            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new FenceBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ALUMINIO_FENCE_GATE = registryBlock("aluminio_fence_gate",
-            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK), SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_DOOR_CLOSE));
+            () -> new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops(), SoundEvents.IRON_DOOR_OPEN, SoundEvents.IRON_DOOR_CLOSE));
 
     public static final RegistryObject<Block> ALUMINIO_WALL = registryBlock("aluminio_wall",
-            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+            () -> new WallBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> ALUMINIO_DOOR = registryBlock("aluminio_door",
-            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR), BlockSetType.IRON));
+            () -> new DoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_DOOR).requiresCorrectToolForDrops(), BlockSetType.IRON));
 
-    public static final RegistryObject<Block> ALUMINIO_TRAPDOOR = registryBlock("aluminio_trapdoor",
-            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR), BlockSetType.IRON));
+    public static final RegistryObject<Block> ALUMINIO_TRAPDOOR = registryBlock("alciplaotimimio_trapdoor",
+            () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops(), BlockSetType.IRON));
+
+    public static final RegistryObject<Block> SOUND_BLOCK = registryBlock("sound_block",
+            () -> new SoundBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));
 
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
         return toReturn;
     }
-    public static final RegistryObject<Block> SOUND_BLOCK = registryBlock("sound_block",
-            () -> new SoundBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST)));
 
     private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block){
         return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));

@@ -1,18 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "category": "misc",
   "key": {
-    "#": {
+    "I": {
       "item": "sedmod:aluminio_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
     }
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "ISI",
+    "ISI"
   ],
   "result": {
-    "item": "sedmod:aluminio_block"
+    "count": 3,
+    "item": "sedmod:aluminio_fence"
   },
   "show_notification": true
 }

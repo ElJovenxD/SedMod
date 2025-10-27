@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.25,
+  "group": "aluminio_ingot",
+  "ingredient": {
+    "item": "sedmod:deepslate_aluminio_ore"
+  },
+  "result": "sedmod:aluminio_ingot"
+}
