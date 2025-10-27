@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "sedmod:block/pepsi_abajo",
+    "east": "sedmod:block/pepsi_lado",
+    "north": "sedmod:block/pepsi_lado",
+    "south": "sedmod:block/pepsi_lado",
+    "up": "sedmod:block/pepsi_arriba",
+    "west": "sedmod:block/pepsi_lado"
+  }
+}

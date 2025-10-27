@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "bottom": "sedmod:block/pepsi_abajo",
-    "top": "sedmod:block/pepsi_arriba",
-    "side": "sedmod:block/pepsi_lado"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "sedmod:block/plastico_block",
+    "side": "sedmod:block/plastico_block",
+    "top": "sedmod:block/plastico_block"
+  }
+}

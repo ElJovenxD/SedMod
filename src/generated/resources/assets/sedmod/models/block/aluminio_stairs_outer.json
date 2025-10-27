@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "sedmod:block/aluminio_block",
+    "side": "sedmod:block/aluminio_block",
+    "top": "sedmod:block/aluminio_block"
+  }
+}

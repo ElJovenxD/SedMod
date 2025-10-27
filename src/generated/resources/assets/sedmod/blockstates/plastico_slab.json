@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sedmod:block/plastico_slab"
+    },
+    "type=double": {
+      "model": "sedmod:block/plastico_block"
+    },
+    "type=top": {
+      "model": "sedmod:block/plastico_slab_top"
+    }
+  }
+}

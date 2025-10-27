@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sedmod:block/aluminio_slab"
+    },
+    "type=double": {
+      "model": "sedmod:block/aluminio_block"
+    },
+    "type=top": {
+      "model": "sedmod:block/aluminio_slab_top"
+    }
+  }
+}

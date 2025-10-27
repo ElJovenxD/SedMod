@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "sedmod:block/aluminio_pressure_plate"
+    },
+    "powered=true": {
+      "model": "sedmod:block/aluminio_pressure_plate_down"
+    }
+  }
+}

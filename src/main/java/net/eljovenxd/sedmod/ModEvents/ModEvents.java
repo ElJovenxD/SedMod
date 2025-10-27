@@ -1,8 +1,7 @@
 package net.eljovenxd.sedmod.ModEvents;
-import java.util.Random;
+
 import net.eljovenxd.sedmod.fatigue.FatigueProvider;
 import net.eljovenxd.sedmod.fatigue.FatigueStorage;
-import net.eljovenxd.sedmod.fatigue.IFatigue;
 import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
 import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.minecraft.sounds.SoundSource;

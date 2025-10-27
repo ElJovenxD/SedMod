@@ -1,0 +1,5 @@
+// 1.20.1	2025-10-26T19:26:39.6460833	Tags for minecraft:block mod id sedmod
+87dbbbe744b3a7edc9e6e721137d947f3bff4ad5 data/minecraft/tags/blocks/fences.json
+71cb1b8ec485170154c54af9053f60fa7fb002ad data/minecraft/tags/blocks/fence_gates.json
+f1279f16cd9dd3301f0f32582ea5c2a5e78b87b9 data/minecraft/tags/blocks/walls.json
+8ec1f1a354773e4a7d8b6038815fa6cc1513c7e0 data/sedmod/tags/blocks/metal_detector_valuables.json
