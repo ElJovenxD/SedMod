@@ -42,6 +42,18 @@
   "block.sedmod.aluminio_pressure_plate": "Placa de Presión de Aluminio",
   "block.sedmod.aluminio_button": "Botón de Aluminio",
 
+  "item.sedmod.aluminio_sword": "Espada de Aluminio",
+  "item.sedmod.aluminio_pickaxe": "Pico de Aluminio",
+  "item.sedmod.aluminio_axe": "Hacha de Aluminio",
+  "item.sedmod.aluminio_shovel": "Pala de Aluminio",
+  "item.sedmod.aluminio_hoe": "Azada de Aluminio",
+
+  "item.sedmod.plastico_sword": "Espada de Plástico",
+  "item.sedmod.plastico_pickaxe": "Pico de Plástico",
+  "item.sedmod.plastico_axe": "Hacha de Plástico",
+  "item.sedmod.plastico_shovel": "Pala de Plástico",
+  "item.sedmod.plastico_hoe": "Azada de Plástico",
+
   "creativetab.sed_tab": "Sed Mod",
 
   "sounds.sedmod.erupto": "Eructo",

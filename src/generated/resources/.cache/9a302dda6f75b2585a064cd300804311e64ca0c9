@@ -1,4 +1,6 @@
-// 1.20.1	2025-10-26T20:44:06.4649888	Tags for minecraft:block mod id sedmod
+// 1.20.1	2025-10-27T18:36:10.1874519	Tags for minecraft:block mod id sedmod
 b3b775badf6f309d707ebeb93136ae41df0dafe9 data/minecraft/tags/blocks/mineable/pickaxe.json
 dff1130a00528a23b27fab516e23af1117742fce data/minecraft/tags/blocks/needs_stone_tool.json
 04e7f98165af02881d0768638f0f4456cf1b3e65 data/sedmod/tags/blocks/metal_detector_valuables.json
+83f4d07c09f7982e716e8aad1fcac391fa51e8d4 data/sedmod/tags/blocks/needs_aluminio_tools.json
+5195b19ee0e6268e7f21e7d41c82518c7c308957 data/sedmod/tags/blocks/needs_plastico_tools.json

@@ -24,7 +24,11 @@ public class ModBlockTagGenerator extends BlockTagsProvider {
                 .add(ModBlocks.ALUMINIO_ORE.get(),
                         ModBlocks.DEEPSLATE_ALUMINIO_ORE.get());
 
-        // --- AÑADE ESTO ---
+        this.tag(ModTags.Blocks.NEEDS_ALUMINIO_TOOLS)
+                .add(ModBlocks.ALUMINIO_ORE.get());
+
+        this.tag(ModTags.Blocks.NEEDS_PLASTICO_TOOLS)
+                .add(ModBlocks.PLASTICO_ORE.get());
 
         // TAG PARA HERRAMIENTA (PICO)
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)

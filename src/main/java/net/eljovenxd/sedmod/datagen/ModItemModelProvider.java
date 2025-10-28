@@ -32,6 +32,20 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.ALUMINIO_INGOT);
         simpleItem(ModItems.METAL_DETECTOR);
 
+        // --- Herramientas de Aluminio (3D) ---
+        handheldItem(ModItems.ALUMINIO_SWORD);
+        handheldItem(ModItems.ALUMINIO_PICKAXE);
+        handheldItem(ModItems.ALUMINIO_AXE);
+        handheldItem(ModItems.ALUMINIO_SHOVEL);
+        handheldItem(ModItems.ALUMINIO_HOE);
+
+        // --- Herramientas de Plástico (3D) ---
+        handheldItem(ModItems.PLASTICO_SWORD);
+        handheldItem(ModItems.PLASTICO_PICKAXE);
+        handheldItem(ModItems.PLASTICO_AXE);
+        handheldItem(ModItems.PLASTICO_SHOVEL);
+        handheldItem(ModItems.PLASTICO_HOE);
+
         // --- Set de Plástico ---
         simpleBlockItem(ModBlocks.PLASTICO_DOOR); // Item de puerta (usa textura .png)
         fenceItem(ModBlocks.PLASTICO_FENCE, ModBlocks.PLASTICO_BLOCK);
@@ -65,6 +79,12 @@ public class ModItemModelProvider extends ItemModelProvider {
     private ItemModelBuilder simpleItem(RegistryObject<Item> item) {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(SedMod.MOD_ID,"item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder handheldItem(RegistryObject<Item> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/handheld")).texture("layer0",
                 new ResourceLocation(SedMod.MOD_ID,"item/" + item.getId().getPath()));
     }
 

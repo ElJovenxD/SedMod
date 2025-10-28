@@ -65,6 +65,20 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlocks.ALUMINIO_DOOR.get());
                         pOutput.accept(ModBlocks.ALUMINIO_TRAPDOOR.get());
 
+                        // Herramientas de Aluminio
+                        pOutput.accept(ModItems.ALUMINIO_SWORD.get());
+                        pOutput.accept(ModItems.ALUMINIO_PICKAXE.get());
+                        pOutput.accept(ModItems.ALUMINIO_AXE.get());
+                        pOutput.accept(ModItems.ALUMINIO_SHOVEL.get());
+                        pOutput.accept(ModItems.ALUMINIO_HOE.get());
+
+                        // Herramientas de Plástico
+                        pOutput.accept(ModItems.PLASTICO_SWORD.get());
+                        pOutput.accept(ModItems.PLASTICO_PICKAXE.get());
+                        pOutput.accept(ModItems.PLASTICO_AXE.get());
+                        pOutput.accept(ModItems.PLASTICO_SHOVEL.get());
+                        pOutput.accept(ModItems.PLASTICO_HOE.get());
+
                     })
                     .build());
 
