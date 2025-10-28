@@ -1,7 +1,7 @@
 package net.eljovenxd.sedmod.item.custom;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.player.Player; // Asegúrate de importar Player
+// import net.minecraft.world.entity.player.Player; // Ya no necesitamos esto
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -28,17 +28,17 @@ public class PiedritaItem extends Item {
     }
 
     // 3. Añadir un tooltip que diga que está atascado
-    @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(Component.translatable("tooltip.sedmod.piedrita.stuck"));
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-    }
+    // @Override
+    // public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    //     pTooltipComponents.add(Component.translatable("tooltip.sedmod.piedrita.stuck")); // <-- LÍNEA ELIMINADA
+    //     super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    // }
+    // HEMOS ELIMINADO EL MÉTODO 'appendHoverText' POR COMPLETO
 
-    // 4. Evita que el jugador lo suelte (Implementación básica)
-    //    Devuelve 'false' para cancelar el dropeo.
-    //    (Para un bloqueo total en la GUI, necesitaremos Eventos más adelante)
-    @Override
-    public boolean onDroppedByPlayer(ItemStack item, Player player) {
-        return false;
-    }
+    // 4. ELIMINAMOS el método onDroppedByPlayer
+    // @Override
+    // public boolean onDroppedByPlayer(ItemStack item, Player player) {
+    //     return player.isCreative();
+    // }
+    // Lo manejaremos 100% con Eventos en ModEvents.java
 }
