@@ -32,6 +32,12 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.ALUMINIO_INGOT);
         simpleItem(ModItems.METAL_DETECTOR);
 
+        // --- AÑADE ESTAS LÍNEAS ---
+        simpleItem(ModItems.PIEDRITA); // 'simpleItem' porque es un item normal
+        handheldItem(ModItems.PLASTICO_CUCHILLO); // 'handheldItem' porque es una herramienta/arma
+        handheldItem(ModItems.ALUMINIO_CUCHILLO); // 'handheldItem' porque es una herramienta/arma
+        // --- FIN ---
+
         // --- Herramientas de Aluminio (3D) ---
         handheldItem(ModItems.ALUMINIO_SWORD);
         handheldItem(ModItems.ALUMINIO_PICKAXE);

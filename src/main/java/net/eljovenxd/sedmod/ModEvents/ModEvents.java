@@ -1,9 +1,11 @@
 package net.eljovenxd.sedmod.ModEvents;
 
+import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.fatigue.FatigueProvider;
 import net.eljovenxd.sedmod.fatigue.FatigueStorage;
 import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
 import net.eljovenxd.sedmod.sounds.ModSounds;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -35,6 +37,17 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.eljovenxd.sedmod.cocacounter.CocaCounterProvider;
+import net.eljovenxd.sedmod.cocacounter.ICocaCounter;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraft.world.entity.player.Player;
+import net.eljovenxd.sedmod.item.ModItems;
+import net.eljovenxd.sedmod.item.ModItems; // Para poder referenciar a PIEDRITA
+import net.minecraft.world.item.ItemStack; // Para obtener el stack del item
+import net.minecraftforge.event.entity.item.ItemTossEvent; // ¡El evento que necesitamos!
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
 
 @Mod.EventBusSubscriber(modid = "sedmod")
 public class ModEvents {
@@ -50,6 +63,9 @@ public class ModEvents {
             }
             if (!event.getObject().getCapability(FatigueStorage.FATIGUE).isPresent()) {
                 event.addCapability(new ResourceLocation("sedmod", "fatigue"), new FatigueProvider());
+            }
+            if(!event.getObject().getCapability(CocaCounterProvider.COCA_COUNTER_CAPABILITY).isPresent()){
+                event.addCapability(new ResourceLocation(SedMod.MOD_ID, "coca_counter"), new CocaCounterProvider());
             }
         }
     }
@@ -77,6 +93,7 @@ public class ModEvents {
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         ThirstStorage.register(event);
         FatigueStorage.register(event);
+        event.register(ICocaCounter.class);
     }
 
     @SubscribeEvent
@@ -363,4 +380,46 @@ public class ModEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onInventoryClick(PlayerContainerEvent event) {
+        Player player = event.getEntity();
+
+        // Si el jugador tiene una GUI abierta (ej: cofre, inventario, mesa de crafteo)
+        if (player.containerMenu != null && player.containerMenu.getCarried() != null) {
+
+            // 1. Si el ítem en el cursor es la piedrita
+            if (player.containerMenu.getCarried().is(ModItems.PIEDRITA.get())) {
+                player.containerMenu.setCarried(null); // Quita la piedrita del cursor
+            }
+
+            // 2. Revisar si hay piedritas en el inventario (opcional, si quieres bloquearlas completamente)
+            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                if (player.getInventory().getItem(i).is(ModItems.PIEDRITA.get())) {
+                    player.getInventory().removeItem(i, 1);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTossItem(ItemTossEvent event) {
+        // Obtenemos el stack de item que se está tirando
+        ItemStack itemStack = event.getEntity().getItem();
+
+        // Verificamos si el item es nuestra piedrita
+        if (itemStack.is(ModItems.PIEDRITA.get())) {
+
+            // Si es la piedrita, le decimos al jugador que no puede
+            // (Esta parte es opcional, pero ayuda al jugador a entender qué pasa)
+            Player player = event.getPlayer();
+            if(!player.level().isClientSide) { // Solo manda el mensaje desde el servidor
+                player.sendSystemMessage(Component.translatable("tooltip.sedmod.piedrita.stuck"));
+            }
+
+            // Cancelamos el evento. El ítem no será dropeado.
+            event.setCanceled(true);
+        }
+    }
+
 }

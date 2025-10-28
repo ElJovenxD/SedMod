@@ -1,60 +1,90 @@
 package net.eljovenxd.sedmod.item;
 
-// --- AÑADE ESTAS IMPORTACIONES ---
+// --- IMPORTACIONES ---
+import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.cocacounter.CocaCounterProvider;
+import net.eljovenxd.sedmod.cocacounter.ICocaCounter;
+import net.eljovenxd.sedmod.networking.ModMessages;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
-// --- FIN DE IMPORTACIONES ---
-
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.util.LazyOptional;
+// --- FIN IMPORTACIONES ---
 
 public class DrinkItem extends Item {
 
-    // --- AÑADE ESTE CAMPO ---
+    // --- SONIDO AL TERMINAR ---
     private final SoundEvent finishSound;
-    // --- FIN DEL CAMPO ---
 
-    // Constructor original (para items sin sonido al terminar, como PEPSI o AGUA)
+    // Constructor para bebidas sin sonido especial
     public DrinkItem(Properties properties) {
-        this(properties, null); // Llama al nuevo constructor con sonido nulo
+        this(properties, null);
     }
 
-    // --- AÑADE ESTE NUEVO CONSTRUCTOR ---
+    // Constructor con sonido personalizado
     public DrinkItem(Properties properties, SoundEvent finishSound) {
         super(properties);
-        this.finishSound = finishSound; // Asigna el sonido
+        this.finishSound = finishSound;
     }
-    // --- FIN DEL CONSTRUCTOR ---
 
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
-    // --- AÑADE ESTE MÉTODO ---
     @Override
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        // Llama al método original para aplicar efectos de comida/bebida
-        ItemStack result = super.finishUsingItem(pStack, pLevel, pEntityLiving);
+    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
+        // Lógica base (consumir bebida)
+        ItemStack result = super.finishUsingItem(pStack, pLevel, pLivingEntity);
 
-        // Si este item tiene un sonido asignado y estamos en el servidor
+        // --- SONIDO DE FINALIZAR ---
         if (this.finishSound != null && !pLevel.isClientSide) {
             pLevel.playSound(
-                    null, // 'null' para que todos lo escuchen
-                    pEntityLiving.getX(),
-                    pEntityLiving.getY(),
-                    pEntityLiving.getZ(),
-                    this.finishSound, // Usa el sonido guardado
+                    null,
+                    pLivingEntity.getX(),
+                    pLivingEntity.getY(),
+                    pLivingEntity.getZ(),
+                    this.finishSound,
                     SoundSource.PLAYERS,
-                    1.0F, // Volumen
-                    1.0F  // Tono (pitch)
+                    1.0F,
+                    1.0F
             );
+        }
+
+        // --- LÓGICA DEL CONTADOR DE COCA ---
+        if (pLivingEntity instanceof Player player && !pLevel.isClientSide) {
+            if (pStack.is(ModItems.COCA.get())) {
+                LazyOptional<ICocaCounter> cocaCounterOptional =
+                        player.getCapability(CocaCounterProvider.COCA_COUNTER_CAPABILITY);
+
+                cocaCounterOptional.ifPresent(cocaCounter -> {
+                    cocaCounter.addCocaCounter(1);
+                    int currentCount = cocaCounter.getCocaCounter();
+
+                    if (currentCount >= 10) {
+                        cocaCounter.setCocaCounter(0);
+
+                        // Dar la piedrita
+                        player.getInventory().add(new ItemStack(ModItems.PIEDRITA.get()));
+
+                        // Mensaje
+                        player.sendSystemMessage(Component.translatable("message.sedmod.piedrita_obtained"));
+
+                        // Sonido divertido al ganar la piedrita
+                        pLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
+                                SoundEvents.STONE_BREAK, SoundSource.PLAYERS, 1.0f, 0.8f);
+                    }
+                });
+            }
         }
 
         return result;
     }
-    // --- FIN DEL MÉTODO ---
 }

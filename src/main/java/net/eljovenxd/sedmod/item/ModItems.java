@@ -13,6 +13,9 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.eljovenxd.sedmod.item.custom.CuchilloItem;
+import net.eljovenxd.sedmod.item.custom.PiedritaItem;
+import net.eljovenxd.sedmod.item.custom.FuelItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -91,6 +94,17 @@ public class ModItems {
 
     public static final RegistryObject<Item> PLASTICO_HOE = ITEMS.register("plastico_hoe",
             () -> new HoeItem(ModToolTiers.PLASTICO, 0, 0, new Item.Properties()));
+
+    public static final RegistryObject<Item> PIEDRITA = ITEMS.register("piedrita",
+            () -> new PiedritaItem(new Item.Properties().stacksTo(1))); // Max stack 1
+
+    public static final RegistryObject<Item> PLASTICO_CUCHILLO = ITEMS.register("plastico_cuchillo",
+            () -> new CuchilloItem(ModToolTiers.PLASTICO, 2, 1,
+                    new Item.Properties().durability(1))); // 1 solo uso
+
+    public static final RegistryObject<Item> ALUMINIO_CUCHILLO = ITEMS.register("aluminio_cuchillo",
+            () -> new CuchilloItem(ModToolTiers.ALUMINIO, 2, 1,
+                    new Item.Properties().durability(2)));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

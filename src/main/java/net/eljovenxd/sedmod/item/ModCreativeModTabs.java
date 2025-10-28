@@ -78,6 +78,9 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.PLASTICO_AXE.get());
                         pOutput.accept(ModItems.PLASTICO_SHOVEL.get());
                         pOutput.accept(ModItems.PLASTICO_HOE.get());
+                        pOutput.accept(ModItems.PIEDRITA.get());
+                        pOutput.accept(ModItems.PLASTICO_CUCHILLO.get());
+                        pOutput.accept(ModItems.ALUMINIO_CUCHILLO.get());
 
                     })
                     .build());

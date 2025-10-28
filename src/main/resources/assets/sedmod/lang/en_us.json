@@ -61,5 +61,12 @@
   "sounds.sedmod.heavy_is_the_crown": "Heavy is the crown",
 
   "tooltip.sedmod.metal_detector.no_valuables": "No se encontraron objetos de valor",
-  "tooltip.sedmod.metal_detector.found_valuables": "¡Objetos de valor encontrados!"
+  "tooltip.sedmod.metal_detector.found_valuables": "¡Objetos de valor encontrados!",
+  "tooltip.sedmod.piedrita.stuck": "¡No puedes soltar esto!",
+
+  "item.sedmod.piedrita": "Piedra en el riñón",
+  "item.sedmod.plastico_cuchillo": "Cuchillo de Plástico",
+  "item.sedmod.aluminio_cuchillo": "Cuchillo de Aluminio",
+
+  "message.sedmod.piedrita_obtained": "Mamaste, te salieron piedras en los riñones"
 }
