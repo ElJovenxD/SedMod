@@ -6,15 +6,18 @@ import net.eljovenxd.sedmod.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem; // Se necesita esta importación
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.item.armortrim.TrimMaterials;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile; // Se necesita esta importación
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.server.packs.PackType; // Se necesita esta importación
 
 import java.util.LinkedHashMap;
 
@@ -121,7 +124,11 @@ public class ModItemModelProvider extends ItemModelProvider {
                     default -> "";
                 };
 
-                String armorItemPath = "item/" + armorItem;
+                // --- LÍNEA CORREGIDA ---
+                // Se cambió 'armorItem' (el objeto) por 'itemRegistryObject.getId().getPath()' (el nombre de registro)
+                String armorItemPath = "item/" + itemRegistryObject.getId().getPath();
+                // --- FIN DE LA CORRECCIÓN ---
+
                 String trimPath = "trims/items/" + armorType + "_trim_" + trimMaterial.location().getPath();
                 String currentTrimName = armorItemPath + "_" + trimMaterial.location().getPath() + "_trim";
                 ResourceLocation armorItemResLoc = new ResourceLocation(MOD_ID, armorItemPath);
