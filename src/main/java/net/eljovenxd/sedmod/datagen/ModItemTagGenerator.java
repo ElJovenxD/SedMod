@@ -1,9 +1,11 @@
 package net.eljovenxd.sedmod.datagen;
 
 import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +20,16 @@ public class ModItemTagGenerator extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider pProvider) {
+        this.tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.PLASTICO_HELMET.get(),
+                        ModItems.PLASTICO_CHESTPLATE.get(),
+                        ModItems.PLASTICO_LEGGINGS.get(),
+                        ModItems.PLASTICO_BOOTS.get());
 
+        this.tag(ItemTags.TRIMMABLE_ARMOR)
+                .add(ModItems.ALUMINIO_HELMET.get(),
+                        ModItems.ALUMINIO_CHESTPLATE.get(),
+                        ModItems.ALUMINIO_LEGGINGS.get(),
+                        ModItems.ALUMINIO_BOOTS.get());
     }
 }
