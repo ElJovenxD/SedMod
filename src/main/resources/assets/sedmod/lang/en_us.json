@@ -68,5 +68,15 @@
   "item.sedmod.plastico_cuchillo": "Cuchillo de Plástico",
   "item.sedmod.aluminio_cuchillo": "Cuchillo de Aluminio",
 
+  "item.sedmod.aluminio_helmet": "Casco de Aluminio",
+  "item.sedmod.aluminio_chestplate": "Pechera de Aluminio",
+  "item.sedmod.aluminio_leggings": "Grebas de Aluminio",
+  "item.sedmod.aluminio_boots": "Botas de Aluminio",
+
+  "item.sedmod.plastico_helmet": "Casco de Plástico",
+  "item.sedmod.plastico_chestplate": "Pechera de Plástico",
+  "item.sedmod.plastico_leggings": "Grebas de Plástico",
+  "item.sedmod.plastico_boots": "Botas de Plástico",
+
   "message.sedmod.piedrita_obtained": "Mamaste, te salieron piedras en los riñones"
 }

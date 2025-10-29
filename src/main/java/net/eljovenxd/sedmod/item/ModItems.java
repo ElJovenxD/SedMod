@@ -106,6 +106,32 @@ public class ModItems {
             () -> new CuchilloItem(ModToolTiers.ALUMINIO, 2, 1,
                     new Item.Properties().durability(2)));
 
+    //Armaduras de aluminio
+    public static final RegistryObject<Item> ALUMINIO_HELMET = ITEMS.register("aluminio_helmet",
+            () -> new ArmorItem(ModArmorMaterials.ALUMINIO, ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> ALUMINIO_CHESTPLATE = ITEMS.register("aluminio_chestplate",
+            () -> new ArmorItem(ModArmorMaterials.ALUMINIO, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> ALUMINIO_LEGGINGS = ITEMS.register("aluminio_leggings",
+            () -> new ArmorItem(ModArmorMaterials.ALUMINIO, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> ALUMINIO_BOOTS = ITEMS.register("aluminio_boots",
+            () -> new ArmorItem(ModArmorMaterials.ALUMINIO, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    //Armaduras de plastico
+    public static final RegistryObject<Item> PLASTICO_HELMET = ITEMS.register("plastico_helmet",
+            () -> new ArmorItem(ModArmorMaterials.PLASTICO, ArmorItem.Type.HELMET, new Item.Properties()));
+
+    public static final RegistryObject<Item> PLASTICO_CHESTPLATE = ITEMS.register("plastico_chestplate",
+            () -> new ArmorItem(ModArmorMaterials.PLASTICO, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+
+    public static final RegistryObject<Item> PLASTICO_LEGGINGS = ITEMS.register("plastico_leggings",
+            () -> new ArmorItem(ModArmorMaterials.PLASTICO, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+
+    public static final RegistryObject<Item> PLASTICO_BOOTS = ITEMS.register("plastico_boots",
+            () -> new ArmorItem(ModArmorMaterials.PLASTICO, ArmorItem.Type.BOOTS, new Item.Properties()));
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

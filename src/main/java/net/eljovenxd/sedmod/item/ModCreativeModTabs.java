@@ -82,6 +82,18 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.PLASTICO_CUCHILLO.get());
                         pOutput.accept(ModItems.ALUMINIO_CUCHILLO.get());
 
+                        // Armadura de Aluminio
+                        pOutput.accept(ModItems.ALUMINIO_HELMET.get());
+                        pOutput.accept(ModItems.ALUMINIO_CHESTPLATE.get());
+                        pOutput.accept(ModItems.ALUMINIO_LEGGINGS.get());
+                        pOutput.accept(ModItems.ALUMINIO_BOOTS.get());
+
+                        // Armadura de Plástico
+                        pOutput.accept(ModItems.PLASTICO_HELMET.get());
+                        pOutput.accept(ModItems.PLASTICO_CHESTPLATE.get());
+                        pOutput.accept(ModItems.PLASTICO_LEGGINGS.get());
+                        pOutput.accept(ModItems.PLASTICO_BOOTS.get());
+
                     })
                     .build());
 
