@@ -155,6 +155,71 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
                 .save(consumer);
 
+        // --- RECETAS DE ARMADURA DE PLÁSTICO (AÑADIR ESTO) ---
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.PLASTICO_HELMET.get())
+                .pattern("###")
+                .pattern("# #")
+                .define('#', ModItems.PLASTICO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.PLASTICO_INGOT.get()), has(ModItems.PLASTICO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.PLASTICO_CHESTPLATE.get())
+                .pattern("# #")
+                .pattern("###")
+                .pattern("###")
+                .define('#', ModItems.PLASTICO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.PLASTICO_INGOT.get()), has(ModItems.PLASTICO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.PLASTICO_LEGGINGS.get())
+                .pattern("###")
+                .pattern("# #")
+                .pattern("# #")
+                .define('#', ModItems.PLASTICO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.PLASTICO_INGOT.get()), has(ModItems.PLASTICO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.PLASTICO_BOOTS.get())
+                .pattern("# #")
+                .pattern("# #")
+                .define('#', ModItems.PLASTICO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.PLASTICO_INGOT.get()), has(ModItems.PLASTICO_INGOT.get()))
+                .save(consumer);
+
+
+        // --- RECETAS DE ARMADURA DE ALUMINIO (AÑADIR ESTO) ---
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.ALUMINIO_HELMET.get())
+                .pattern("###")
+                .pattern("# #")
+                .define('#', ModItems.ALUMINIO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.ALUMINIO_CHESTPLATE.get())
+                .pattern("# #")
+                .pattern("###")
+                .pattern("###")
+                .define('#', ModItems.ALUMINIO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.ALUMINIO_LEGGINGS.get())
+                .pattern("###")
+                .pattern("# #")
+                .pattern("# #")
+                .define('#', ModItems.ALUMINIO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.ALUMINIO_BOOTS.get())
+                .pattern("# #")
+                .pattern("# #")
+                .define('#', ModItems.ALUMINIO_INGOT.get())
+                .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
+                .save(consumer);
+
     }
 
 

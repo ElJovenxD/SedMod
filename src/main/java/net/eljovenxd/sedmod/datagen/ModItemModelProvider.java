@@ -104,6 +104,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(ModItems.PLASTICO_CHESTPLATE);
         trimmedArmorItem(ModItems.PLASTICO_LEGGINGS);
         trimmedArmorItem(ModItems.PLASTICO_BOOTS);
+
+        trimmedArmorItem(ModItems.ALUMINIO_HELMET);
+        trimmedArmorItem(ModItems.ALUMINIO_CHESTPLATE);
+        trimmedArmorItem(ModItems.ALUMINIO_LEGGINGS);
+        trimmedArmorItem(ModItems.ALUMINIO_BOOTS);
     }
 
 
