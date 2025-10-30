@@ -9,6 +9,7 @@ import net.eljovenxd.sedmod.ModEvents.ModCommands;
 import net.eljovenxd.sedmod.datagen.DataGenerators;
 import net.eljovenxd.sedmod.item.ModCreativeModTabs;
 import net.eljovenxd.sedmod.item.ModItems;
+import net.eljovenxd.sedmod.loot.ModLootModifiers;
 import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -38,6 +39,8 @@ public class SedMod {
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSounds.register(modEventBus);
+
+        ModLootModifiers.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

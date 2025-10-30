@@ -35,6 +35,6 @@ public class DataGenerators {
 
         generator.addProvider(event.includeServer(), new ModItemTagGenerator(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper)); // Para etiquetas de ítems (tags)
 
-        // --- YA NO HAY NINGUNA LÍNEA DUPLICADA AQUÍ ABAJO ---
+        generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
     }
 }
