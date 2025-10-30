@@ -1,0 +1,9 @@
+{
+  "entries": [
+    "sedmod:plastico_from_grass",
+    "sedmod:lata_combustible_from_blaze",
+    "sedmod:coca_from_zombie",
+    "sedmod:metal_detector_from_spawners"
+  ],
+  "replace": false
+}
