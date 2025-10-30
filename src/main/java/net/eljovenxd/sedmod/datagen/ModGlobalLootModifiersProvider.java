@@ -3,6 +3,7 @@ package net.eljovenxd.sedmod.datagen;
 import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.loot.AddItemModifier;
+import net.eljovenxd.sedmod.loot.AddSusSandItemModifier;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
@@ -34,5 +35,11 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
         add("metal_detector_from_spawners",new AddItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/simple_dungeon")).build(),
                 LootItemRandomChanceCondition.randomChance(0.15f).build()}, ModItems.METAL_DETECTOR.get()));
+
+        add("plastico_from_suspicious_sand",new AddSusSandItemModifier(new LootItemCondition[]{
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()}, ModItems.PLASTICO_INGOT.get()));
+
+        add("aluminio_from_suspicious_sand",new AddSusSandItemModifier(new LootItemCondition[]{
+                new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()}, ModItems.ALUMINIO_INGOT.get()));
     }
 }
