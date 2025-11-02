@@ -3,10 +3,9 @@ package net.eljovenxd.sedmod.ModEvents;
 import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.fatigue.FatigueProvider;
 import net.eljovenxd.sedmod.fatigue.FatigueStorage;
-import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
-import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.networking.ModMessages;
+import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
 import net.eljovenxd.sedmod.networking.SyncThirstPacket;
 import net.eljovenxd.sedmod.thirst.ThirstProvider;
 import net.eljovenxd.sedmod.thirst.ThirstStorage;
@@ -21,9 +20,12 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
@@ -31,7 +33,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.item.ItemTossEvent; // <--- ELIMINADO EL BLOQUEO DE TIRO
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -45,7 +47,6 @@ public class ModEvents {
 
     private static final String HALLUCINATION_TAG = "SedModHallucination_Timer";
 
-    // ------------------ CAPACIDADES ------------------
     @SubscribeEvent
     public static void onAttachCapabilitiesPlayer(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
@@ -64,17 +65,29 @@ public class ModEvents {
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            event.getOriginal().getCapability(ThirstStorage.THIRST).ifPresent(oldStore ->
-                    event.getEntity().getCapability(ThirstStorage.THIRST).ifPresent(newStore -> {
-                        newStore.setThirst(oldStore.getThirst());
-                        newStore.setThirstSaturation(oldStore.getThirstSaturation());
+            Player newPlayer = event.getEntity();
+            Player oldPlayer = event.getOriginal();
+
+            AttributeInstance maxHealthAttribute = newPlayer.getAttribute(Attributes.MAX_HEALTH);
+            if (maxHealthAttribute != null) {
+                maxHealthAttribute.setBaseValue(20.0D);
+            }
+
+            for (int i = 0; i < newPlayer.getInventory().getContainerSize(); i++) {
+                if (newPlayer.getInventory().getItem(i).is(ModItems.PIEDRITA.get())) {
+                    newPlayer.getInventory().setItem(i, ItemStack.EMPTY);
+                }
+            }
+
+            oldPlayer.getCapability(ThirstStorage.THIRST).ifPresent(oldStore ->
+                    newPlayer.getCapability(ThirstStorage.THIRST).ifPresent(newStore -> {
+                        newStore.setThirst(20);
+                        newStore.setThirstSaturation(5.0F);
                     })
             );
-            event.getOriginal().getCapability(FatigueStorage.FATIGUE).ifPresent(oldStore ->
-                    event.getEntity().getCapability(FatigueStorage.FATIGUE).ifPresent(newStore -> {
-                        newStore.setFatigue(oldStore.getFatigue());
-                        newStore.setLastSleepTime(oldStore.getLastSleepTime());
-                        newStore.setSleeping(oldStore.isSleeping());
+            oldPlayer.getCapability(FatigueStorage.FATIGUE).ifPresent(oldStore ->
+                    newPlayer.getCapability(FatigueStorage.FATIGUE).ifPresent(newStore -> {
+                        newStore.setFatigue(20);
                     })
             );
         }
@@ -87,42 +100,36 @@ public class ModEvents {
         event.register(ICocaCounter.class);
     }
 
-    @SubscribeEvent
-    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            player.getCapability(ThirstStorage.THIRST).ifPresent(thirst ->
-                    ModMessages.sendToPlayer(new SyncThirstPacket(thirst.getThirst(), thirst.getThirstSaturation()), player)
-            );
-            player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue ->
-                    ModMessages.sendToPlayer(new SyncFatiguePacket(fatigue.getFatigue()), player)
-            );
-
-            // <--- INICIO DEL CAMBIO
-            // Eliminamos la lógica que aseguraba la piedrita en el slot 0
-            // if (!player.isCreative()) {
-            //     ItemStack slot0 = player.getInventory().getItem(0);
-            //     if (slot0.isEmpty() || !slot0.is(ModItems.PIEDRITA.get())) {
-            //         player.getInventory().setItem(0, new ItemStack(ModItems.PIEDRITA.get()));
-            //     }
-            // }
-            // <--- FIN DEL CAMBIO
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onItemToss(ItemTossEvent event) {
+        ItemStack tossedStack = event.getEntity().getItem();
+        if (tossedStack.is(ModItems.PIEDRITA.get())) {
+            event.setCanceled(true);
+            Player player = event.getPlayer();
+            if (!player.getInventory().add(tossedStack.copy())) {
+                 player.drop(tossedStack.copy(), false);
+            }
+            if (!player.level().isClientSide) {
+                player.sendSystemMessage(Component.translatable("message.sedmod.piedrita_stuck_toss"));
+            }
         }
     }
 
-    // ------------------ BLOQUEO TOTAL DE "PIEDRITA" ------------------
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.side.isServer()) {
+        if (event.side.isServer() && event.phase == TickEvent.Phase.END) {
             Player player = event.player;
 
-            // <--- INICIO DEL CAMBIO
-            // ------------------ BLOQUEO MEJORADO DE "PIEDRITA" ------------------
-            // HEMOS ELIMINADO TODO EL BLOQUE DE CÓDIGO QUE MANEJABA EL BLOQUEO
-            // DE LA PIEDRITA EN EL SLOT 9 Y LA ELIMINABA DE OTROS SLOTS.
-            // <--- FIN DEL CAMBIO
+            if (player.isCreative()) {
+                return;
+            }
 
-            // ------------------ EFECTOS DE SED Y FATIGA ------------------
-            if (event.player.level().getGameTime() % 600 == 0 && !player.isCreative() && !player.isSpectator()) {
+            // --- BLOQUEO DE PIEDRITA EN CURSOR Y OTROS INVENTARIOS ---
+            handlePiedritaInCursor(player);
+            handlePiedritaInOpenContainer(player);
+
+            // --- EFECTOS DE SED Y FATIGA ---
+            if (event.player.level().getGameTime() % 600 == 0 && !player.isSpectator()) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     if (thirst.getThirst() > 0) {
                         if (thirst.getThirstSaturation() > 0) {
@@ -135,7 +142,7 @@ public class ModEvents {
                 });
             }
 
-            if (event.player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
+            if (event.player.level().getGameTime() % 80 == 0 && !player.isSpectator()) {
                 player.getCapability(ThirstStorage.THIRST).ifPresent(thirst -> {
                     if (thirst.getThirst() <= 0) {
                         player.hurt(player.damageSources().starve(), 1.0F);
@@ -143,7 +150,7 @@ public class ModEvents {
                 });
             }
 
-            if (event.player.level().getGameTime() % 3000 == 0 && !player.isCreative() && !player.isSpectator()) {
+            if (event.player.level().getGameTime() % 3000 == 0 && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     if (fatigue.getFatigue() > 0) {
                         fatigue.removeFatigue(1);
@@ -152,7 +159,7 @@ public class ModEvents {
                 });
             }
 
-            if (event.player.level().getGameTime() % 80 == 0 && !player.isCreative() && !player.isSpectator()) {
+            if (event.player.level().getGameTime() % 80 == 0 && !player.isSpectator()) {
                 player.getCapability(FatigueStorage.FATIGUE).ifPresent(fatigue -> {
                     int fatigueLevel = fatigue.getFatigue();
                     if (fatigueLevel <= 0 && !player.isSleeping() && !player.isUsingItem()) {
@@ -170,31 +177,76 @@ public class ModEvents {
         }
     }
 
-    // <--- INICIO DEL CAMBIO
-    // ------------------ BLOQUEAR TIRAR LA PIEDRITA ------------------
-    // Hemos eliminado el evento "onItemToss" que bloqueaba tirar la piedrita.
-    // Ahora se podrá tirar como cualquier item.
-    // <--- FIN DEL CAMBIO
+    private static void handlePiedritaInCursor(Player player) {
+        if (player.containerMenu.getCarried().is(ModItems.PIEDRITA.get())) {
+            ItemStack piedritaStack = player.containerMenu.getCarried().copy();
+            player.containerMenu.setCarried(ItemStack.EMPTY);
+            if (!player.getInventory().add(piedritaStack)) {
+                player.drop(piedritaStack, false);
+            }
+            if (player instanceof ServerPlayer) {
+                ((ServerPlayer) player).sendSystemMessage(Component.translatable("message.sedmod.piedrita_stuck_move"));
+            }
+        }
+    }
 
-    // ------------------ ALUCINACIONES ------------------
+    private static void handlePiedritaInOpenContainer(Player player) {
+        if (player.containerMenu != player.inventoryMenu) {
+            for (int i = 0; i < player.containerMenu.slots.size() - 36; i++) {
+                Slot slot = player.containerMenu.getSlot(i);
+                if (slot.hasItem() && slot.getItem().is(ModItems.PIEDRITA.get())) {
+                    ItemStack piedritaStack = slot.getItem().copy();
+                    slot.set(ItemStack.EMPTY);
+                    if (!player.getInventory().add(piedritaStack)) {
+                        player.drop(piedritaStack, false);
+                    }
+                    if (player instanceof ServerPlayer) {
+                        ((ServerPlayer) player).sendSystemMessage(Component.translatable("message.sedmod.piedrita_stuck_move"));
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLevelTick(TickEvent.LevelTickEvent event) {
+        if (event.side.isServer() && event.phase == TickEvent.Phase.END) {
+            ServerLevel level = (ServerLevel) event.level;
+            for (Entity entity : level.getAllEntities()) {
+                if (entity.getPersistentData().contains(HALLUCINATION_TAG)) {
+                    int timer = entity.getPersistentData().getInt(HALLUCINATION_TAG);
+                    if (timer <= 1) {
+                        entity.discard();
+                    } else {
+                        entity.getPersistentData().putInt(HALLUCINATION_TAG, timer - 1);
+                    }
+                }
+            }
+        }
+    }
+
     private static void spawnHallucination(Player player) {
         ServerLevel level = (ServerLevel) player.level();
-        double angle = level.random.nextDouble() * 2 * Math.PI;
-        double distance = 5 + level.random.nextDouble() * 10;
-        double x = player.getX() + Math.cos(angle) * distance;
-        double z = player.getZ() + Math.sin(angle) * distance;
-        double y = player.getY() + 1;
+        int numberOfMobs = level.random.nextInt(5) + 1;
 
-        if (level.random.nextBoolean()) {
-            Creeper creeper = new Creeper(EntityType.CREEPER, level);
-            creeper.setPos(x, y, z);
-            creeper.getPersistentData().putInt(HALLUCINATION_TAG, 100);
-            level.addFreshEntity(creeper);
-        } else {
-            Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
-            zombie.setPos(x, y, z);
-            zombie.getPersistentData().putInt(HALLUCINATION_TAG, 200);
-            level.addFreshEntity(zombie);
+        for (int i = 0; i < numberOfMobs; i++) {
+            double angle = level.random.nextDouble() * 2 * Math.PI;
+            double distance = 5 + level.random.nextDouble() * 10;
+            double x = player.getX() + Math.cos(angle) * distance;
+            double z = player.getZ() + Math.sin(angle) * distance;
+            double y = player.getY() + 1;
+
+            if (level.random.nextBoolean()) {
+                Creeper creeper = new Creeper(EntityType.CREEPER, level);
+                creeper.setPos(x, y, z);
+                creeper.getPersistentData().putInt(HALLUCINATION_TAG, 100);
+                level.addFreshEntity(creeper);
+            } else {
+                Zombie zombie = new Zombie(EntityType.ZOMBIE, level);
+                zombie.setPos(x, y, z);
+                zombie.getPersistentData().putInt(HALLUCINATION_TAG, 200);
+                level.addFreshEntity(zombie);
+            }
         }
     }
 
@@ -219,7 +271,6 @@ public class ModEvents {
         }
     }
 
-    // ------------------ BEBIDAS ------------------
     @SubscribeEvent
     public static void onPlayerFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity() instanceof Player player && !player.level().isClientSide()) {

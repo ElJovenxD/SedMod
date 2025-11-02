@@ -1,10 +1,8 @@
 package net.eljovenxd.sedmod.item;
 
 // --- IMPORTACIONES ---
-import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.cocacounter.CocaCounterProvider;
 import net.eljovenxd.sedmod.cocacounter.ICocaCounter;
-import net.eljovenxd.sedmod.networking.ModMessages;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -71,8 +69,8 @@ public class DrinkItem extends Item {
                     if (currentCount >= 10) {
                         cocaCounter.setCocaCounter(0);
 
-                        // Dar la piedrita
-                        player.getInventory().add(new ItemStack(ModItems.PIEDRITA.get()));
+                        // Dar la piedrita con la nueva lógica
+                        givePiedrita(player);
 
                         // Mensaje
                         player.sendSystemMessage(Component.translatable("message.sedmod.piedrita_obtained"));
@@ -86,5 +84,51 @@ public class DrinkItem extends Item {
         }
 
         return result;
+    }
+
+    private void givePiedrita(Player player) {
+        ItemStack piedritaStack = new ItemStack(ModItems.PIEDRITA.get());
+
+        // 1. Prioridad MÁXIMA al inventario principal (slots 9-35)
+        // Primero, busca un slot vacío
+        for (int i = 9; i < 36; i++) {
+            if (player.getInventory().getItem(i).isEmpty()) {
+                player.getInventory().setItem(i, piedritaStack);
+                return;
+            }
+        }
+
+        // Si no hay slots vacíos, busca un item para reemplazar en el inventario principal
+        for (int i = 9; i < 36; i++) {
+            ItemStack currentStack = player.getInventory().getItem(i);
+            if (!currentStack.is(ModItems.PIEDRITA.get())) {
+                player.drop(currentStack.copy(), false);
+                player.getInventory().setItem(i, piedritaStack);
+                return;
+            }
+        }
+
+        // 2. La Hotbar como ÚLTIMO RECURSO (slots 0-8)
+        // Esto solo se ejecuta si el inventario principal (9-35) está lleno de piedritas.
+        // Busca un slot vacío en la hotbar
+        for (int i = 0; i < 9; i++) {
+            if (player.getInventory().getItem(i).isEmpty()) {
+                player.getInventory().setItem(i, piedritaStack);
+                return;
+            }
+        }
+
+        // Si la hotbar está llena, busca un item para reemplazar
+        for (int i = 0; i < 9; i++) {
+            ItemStack currentStack = player.getInventory().getItem(i);
+            if (!currentStack.is(ModItems.PIEDRITA.get())) {
+                player.drop(currentStack.copy(), false);
+                player.getInventory().setItem(i, piedritaStack);
+                return;
+            }
+        }
+
+        // 3. Si todo el inventario está lleno de piedritas, suelta la nueva
+        player.drop(piedritaStack, false);
     }
 }

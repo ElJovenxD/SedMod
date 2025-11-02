@@ -78,5 +78,7 @@
   "item.sedmod.plastico_leggings": "Grebas de Plástico",
   "item.sedmod.plastico_boots": "Botas de Plástico",
 
-  "message.sedmod.piedrita_obtained": "Mamaste, te salieron piedras en los riñones"
+  "message.sedmod.piedrita_obtained": "Mamaste, te salieron piedras en los riñones",
+  "message.sedmod.piedrita_stuck_toss": "¡No puedes tirar la piedra del riñón!",
+  "message.sedmod.piedrita_stuck_move": "¡No puedes mover la piedra del riñón!"
 }
