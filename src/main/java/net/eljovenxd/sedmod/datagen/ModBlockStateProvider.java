@@ -2,11 +2,17 @@ package net.eljovenxd.sedmod.datagen;
 
 import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.block.ModBlocks;
+import net.eljovenxd.sedmod.block.custom.LechugaCropBlock;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
     public ModBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -46,6 +52,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         modLoc("block/pepsi_lado")) // west
         );
 
+
+
         stairsBlock(((StairBlock) ModBlocks.PLASTICO_STAIRS.get()), blockTexture(ModBlocks.PLASTICO_BLOCK.get()));
         slabBlock(((SlabBlock) ModBlocks.PLASTICO_SLAB.get()), blockTexture(ModBlocks.PLASTICO_BLOCK.get()), blockTexture(ModBlocks.PLASTICO_BLOCK.get()));
         buttonBlock(((ButtonBlock) ModBlocks.PLASTICO_BUTTON.get()), blockTexture(ModBlocks.PLASTICO_BLOCK.get()));
@@ -69,6 +77,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
         doorBlockWithRenderType(((DoorBlock) ModBlocks.ALUMINIO_DOOR.get()), modLoc("block/aluminio_door_bottom"), modLoc("block/aluminio_door_top"), "cutout");
         trapdoorBlockWithRenderType(((TrapDoorBlock) ModBlocks.ALUMINIO_TRAPDOOR.get()), modLoc("block/aluminio_trapdoor"), true, "cutout");
+
+        makeLechugaCrop((CropBlock) ModBlocks.LECHUGA_CROP.get(), "lechuga_stage", "lechuga_stage");
+    }
+
+    public void makeLechugaCrop(CropBlock block, String modelName, String textureName) {
+        Function<BlockState, ConfiguredModel[]> function = state -> lechugaStates(state, block, modelName, textureName);
+
+        getVariantBuilder(block).forAllStates(function);
+    }
+
+    private ConfiguredModel[] lechugaStates(BlockState state, CropBlock block, String modelName, String textureName) {
+        ConfiguredModel[] models = new ConfiguredModel[1];
+        models[0] = new ConfiguredModel(models().crop(modelName + state.getValue(((LechugaCropBlock) block).getAgeProperty()),
+                new ResourceLocation(SedMod.MOD_ID, "block/" + textureName + state.getValue(((LechugaCropBlock) block).getAgeProperty()))).renderType("cutout"));
+
+        return models;
     }
 
     // Helper para bloques con item de bloque (la mayoría)

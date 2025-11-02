@@ -25,6 +25,9 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.METAL_DETECTOR.get());
                         pOutput.accept(ModItems.MARUCHAN.get());
                         pOutput.accept(ModItems.LATA_COMBUSTIBLE.get());
+                        pOutput.accept(ModItems.LECHUGA.get());
+                        pOutput.accept(ModItems.LECHUGA_SEEDS.get());
+
 
                         // Recursos (Lingotes y Crudos)
                         pOutput.accept(ModItems.RAW_PLASTICO.get());

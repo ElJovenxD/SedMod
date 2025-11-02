@@ -220,6 +220,11 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.ALUMINIO_INGOT.get()), has(ModItems.ALUMINIO_INGOT.get()))
                 .save(consumer);
 
+        // --- RECETA DE SEMILLAS DE LECHUGA (Añadido) ---
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LECHUGA_SEEDS.get(), 1)
+                .requires(ModItems.LECHUGA.get())
+                .unlockedBy(getHasName(ModItems.LECHUGA.get()), has(ModItems.LECHUGA.get()))
+                .save(consumer);
     }
 
 

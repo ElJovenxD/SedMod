@@ -1,16 +1,22 @@
 package net.eljovenxd.sedmod.datagen.loot;
 
 import net.eljovenxd.sedmod.block.ModBlocks;
+import net.eljovenxd.sedmod.block.custom.LechugaCropBlock;
 import net.eljovenxd.sedmod.item.ModItems;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -82,6 +88,19 @@ public class ModBlockLootTables extends BlockLootSubProvider {
                 block -> createSlabItemTable(ModBlocks.ALUMINIO_SLAB.get()));
         this.add(ModBlocks.ALUMINIO_DOOR.get(),
                 block -> createDoorTable(ModBlocks.ALUMINIO_DOOR.get()));
+
+        LootItemCondition.Builder lootitemcondition$builder = LootItemBlockStatePropertyCondition
+                .hasBlockStateProperties(ModBlocks.LECHUGA_CROP.get())
+                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LechugaCropBlock.AGE, 5));
+
+        this.add(ModBlocks.LECHUGA_CROP.get(), createCropDrops(ModBlocks.LECHUGA_CROP.get(), ModItems.LECHUGA.get(),
+                ModItems.LECHUGA_SEEDS.get(), lootitemcondition$builder));
+
+        // --- SEMILLAS DE LECHUGA DE LA HIERBA ---
+        this.add(Blocks.GRASS, (block) -> {
+            return this.createShearsDispatchTable(block, (LootPoolEntryContainer.Builder)this.applyExplosionDecay(block, LootItem.lootTableItem(ModItems.LECHUGA_SEEDS.get()).when(LootItem.randomChance(0.125F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2)));
+        });
+
     }
 
     // --- Helper de Estilo Cobre (Igual que el ejemplo) ---

@@ -53,6 +53,9 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.PLASTICO_INGOT);
         simpleItem(ModItems.ALUMINIO_INGOT);
         simpleItem(ModItems.METAL_DETECTOR);
+        simpleItem(ModItems.LECHUGA);
+        simpleItem(ModItems.LECHUGA_SEEDS);
+
 
         // --- AÑADE ESTAS LÍNEAS ---
         simpleItem(ModItems.PIEDRITA); // 'simpleItem' porque es un item normal

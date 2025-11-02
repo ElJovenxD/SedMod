@@ -1,6 +1,7 @@
 package net.eljovenxd.sedmod.item;
 
 import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.block.ModBlocks;
 import net.eljovenxd.sedmod.item.custom.FuelItem;
 import net.eljovenxd.sedmod.item.custom.MetalDetectorItem;
 import net.eljovenxd.sedmod.item.custom.ModFoods;
@@ -47,6 +48,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> MARUCHAN = ITEMS.register("maruchan",
             () -> new Item(new Item.Properties().food(ModFoods.MARUCHAN)));
+
+    public static final RegistryObject<Item> LECHUGA = ITEMS.register("lechuga",
+            () -> new Item(new Item.Properties().food(ModFoods.LECHUGA)));
+
 
     public static final RegistryObject<Item> RAW_PLASTICO = ITEMS.register("raw_plastico",
             () -> new Item(new Item.Properties()));
@@ -131,6 +136,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> PLASTICO_BOOTS = ITEMS.register("plastico_boots",
             () -> new ArmorItem(ModArmorMaterials.PLASTICO, ArmorItem.Type.BOOTS, new Item.Properties()));
+
+    public static final RegistryObject<Item> LECHUGA_SEEDS = ITEMS.register("lechuga_seeds",
+            () -> new ItemNameBlockItem(ModBlocks.LECHUGA_CROP.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
