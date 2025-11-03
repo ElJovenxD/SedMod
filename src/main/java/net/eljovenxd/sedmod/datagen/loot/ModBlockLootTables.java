@@ -95,12 +95,6 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.add(ModBlocks.LECHUGA_CROP.get(), createCropDrops(ModBlocks.LECHUGA_CROP.get(), ModItems.LECHUGA.get(),
                 ModItems.LECHUGA_SEEDS.get(), lootitemcondition$builder));
-
-        // --- SEMILLAS DE LECHUGA DE LA HIERBA ---
-        this.add(Blocks.GRASS, (block) -> {
-            return this.createShearsDispatchTable(block, (LootPoolEntryContainer.Builder)this.applyExplosionDecay(block, LootItem.lootTableItem(ModItems.LECHUGA_SEEDS.get()).when(LootItem.randomChance(0.125F))).apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE, 2)));
-        });
-
     }
 
     // --- Helper de Estilo Cobre (Igual que el ejemplo) ---

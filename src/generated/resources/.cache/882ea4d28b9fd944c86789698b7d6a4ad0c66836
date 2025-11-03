@@ -1,8 +1,9 @@
-// 1.20.1	2025-10-29T21:28:49.1191879	Global Loot Modifiers : sedmod
-4eb5c9cb6180b37682fb1571eee8f7d3b4201cd2 data/forge/loot_modifiers/global_loot_modifiers.json
+// 1.20.1	2025-11-03T10:51:53.2587711	Global Loot Modifiers : sedmod
+e0a48446c9ea7f606547ff8c35deb2a1abd03d65 data/forge/loot_modifiers/global_loot_modifiers.json
 b0533bd37b5d94a771d9f75dd11fdf7af91efbf8 data/sedmod/loot_modifiers/aluminio_from_suspicious_sand.json
 fce80c3a7466bd0b861efd7b04afb852aa37c4fe data/sedmod/loot_modifiers/coca_from_zombie.json
 a3b98427006f36e616cc5faacb047b31119d3282 data/sedmod/loot_modifiers/lata_combustible_from_blaze.json
+e8bb19f706941d3e2f4cdd2d2faefc1d71c6335e data/sedmod/loot_modifiers/lechuga_seeds_from_grass.json
 6dbc7ebaec5bdb3526c881c88329c37a2f36530b data/sedmod/loot_modifiers/metal_detector_from_spawners.json
 fdbb11dbcabe586c54ed9c6f9a1f060d98dc08e3 data/sedmod/loot_modifiers/plastico_from_grass.json
 401c84311bd449b7bed1143f1c302c33acf36798 data/sedmod/loot_modifiers/plastico_from_suspicious_sand.json

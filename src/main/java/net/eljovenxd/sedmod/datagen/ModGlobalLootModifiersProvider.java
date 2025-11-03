@@ -6,7 +6,11 @@ import net.eljovenxd.sedmod.loot.AddItemModifier;
 import net.eljovenxd.sedmod.loot.AddSusSandItemModifier;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
@@ -41,5 +45,9 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
 
         add("aluminio_from_suspicious_sand",new AddSusSandItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()}, ModItems.ALUMINIO_INGOT.get()));
+
+        add("lechuga_seeds_from_grass", new AddItemModifier(new LootItemCondition[]{
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.GRASS).build(),
+                LootItemRandomChanceCondition.randomChance(0.125f).build()}, ModItems.LECHUGA_SEEDS.get()));
     }
 }

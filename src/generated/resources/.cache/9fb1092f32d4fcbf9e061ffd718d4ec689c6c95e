@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-29T19:45:52.960209	Recipes
+// 1.20.1	2025-11-03T10:51:53.2587711	Recipes
 c311c641107af58315dfa1c424aaefa26fe2c8a3 data/minecraft/advancements/recipes/misc/aluminio_ingot_from_blasting_aluminio_ore.json
 6f7d87c452a4134556e99248622bc13f98354c42 data/minecraft/advancements/recipes/misc/aluminio_ingot_from_blasting_deepslate_aluminio_ore.json
 425d723b39f5b0e0ff731e289d61d019c7c30593 data/minecraft/advancements/recipes/misc/aluminio_ingot_from_blasting_raw_aluminio.json
@@ -37,6 +37,7 @@ caef3dea0590a3fc9cd6e7849653b0442f30b08c data/sedmod/advancements/recipes/combat
 7dfeffcd92fd9a5d30900d34116b03f82f3112a6 data/sedmod/advancements/recipes/decorations/plastico_fence.json
 e804728aba8e3b5862c06d7d5d61ddb42b12b5ad data/sedmod/advancements/recipes/decorations/sound_block.json
 327586ebcac31248cdd91bdc47984be5901f6716 data/sedmod/advancements/recipes/misc/aluminio_ingot.json
+c6f48036272dd407961b46f334a0843fb7247a90 data/sedmod/advancements/recipes/misc/lechuga_seeds.json
 158f76f6ce8d24df3e5477376c9f5e6dc954baa2 data/sedmod/advancements/recipes/misc/plastico_ingot.json
 3230f0e7676cb32bf8ef659672eea0ef14a15dcc data/sedmod/advancements/recipes/redstone/aluminio_fence_gate.json
 5a4e62785eb03ae383535e39e90312a5dc92bd12 data/sedmod/advancements/recipes/redstone/plastico_fence_gate.json
@@ -48,6 +49,7 @@ a2ad14fecd86c65eb9e7f5916baa8a9e1ec99bb5 data/sedmod/recipes/aluminio_boots.json
 4e8baff305bcfd0c0d426b5d9b4aaffc5adf0a70 data/sedmod/recipes/aluminio_helmet.json
 2abb08da62fa2e076ba6336b8006d72f0425c748 data/sedmod/recipes/aluminio_ingot.json
 75900db7b53495b352bf0f04a9e435f9f11c26bb data/sedmod/recipes/aluminio_leggings.json
+3b594b190b10947b892a2612a870d5e2b34ceaf7 data/sedmod/recipes/lechuga_seeds.json
 2cfadc3b05795bd75ebfc15cacdcfda6ca6d2783 data/sedmod/recipes/plastico_block.json
 13290a4d0921c3d3b03248b545ae2f014e8ef360 data/sedmod/recipes/plastico_boots.json
 0c35129e0bd982d7e1afd98f35e2ab389dd4d218 data/sedmod/recipes/plastico_chestplate.json

@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-26T20:20:23.496437	Loot Tables
+// 1.20.1	2025-11-03T10:51:53.2587711	Loot Tables
 ab44f3d02badb76d642da4a0a2f9e99f64c52285 data/sedmod/loot_tables/blocks/alciplaotimimio_trapdoor.json
 8db7f2cbd8d0363678979b62ecf61425954cbde6 data/sedmod/loot_tables/blocks/aluminio_block.json
 ccf96e0d961dab290a038e7663b303b6d6cc5a14 data/sedmod/loot_tables/blocks/aluminio_button.json
@@ -14,6 +14,7 @@ e016136c032172f664a0d4debb688d99a27140e1 data/sedmod/loot_tables/blocks/caja_coc
 e6f9939e7fccaf4ba70b150f451ecf8cbc82f492 data/sedmod/loot_tables/blocks/caja_pepsi.json
 134a81d29641ad72a5ee7fef742b5cd0a2b09c1b data/sedmod/loot_tables/blocks/deepslate_aluminio_ore.json
 eb003745556e4ef36f6edab4877c8722ef40f16e data/sedmod/loot_tables/blocks/deepslate_plastico_ore.json
+d0f351ad98bcceb81fba645a383aa121f7f59af1 data/sedmod/loot_tables/blocks/lechuga_crop.json
 3e0bfec8fd4be31d9d1679a885dfd4f1a8970073 data/sedmod/loot_tables/blocks/plastico_block.json
 89d0eb47a5261f167080138199941627d27cf5b5 data/sedmod/loot_tables/blocks/plastico_button.json
 0db7df606ef7187baf1c3ea0771c23109c2099d9 data/sedmod/loot_tables/blocks/plastico_door.json

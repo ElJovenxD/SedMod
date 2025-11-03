@@ -1,4 +1,4 @@
-// 1.20.1	2025-10-26T20:20:23.4913826	Block States: sedmod
+// 1.20.1	2025-11-03T10:51:53.2587711	Block States: sedmod
 6601239c8183fafabe4bb6e465e2b4887c1d0aef assets/sedmod/blockstates/alciplaotimimio_trapdoor.json
 a7536297cc137e3e7fbc6a201c101bd957458f6f assets/sedmod/blockstates/aluminio_block.json
 26a5a3b608ff7f62281c71ea6da8f21780682c88 assets/sedmod/blockstates/aluminio_button.json
@@ -14,6 +14,7 @@ efeb44defdc8e7214661a383e9aec6e477b25eeb assets/sedmod/blockstates/aluminio_ore.
 4f73bb46cc1f3c972b7348e1ab856d24636d2b2d assets/sedmod/blockstates/caja_pepsi.json
 86216b92fde2b68bf4fa4b679547b0c8ca53583b assets/sedmod/blockstates/deepslate_aluminio_ore.json
 2d40b0858d8ec75559107d081650957124c4b82a assets/sedmod/blockstates/deepslate_plastico_ore.json
+9f510f81af453dbf15bb9b32e9b275db25ba887c assets/sedmod/blockstates/lechuga_crop.json
 c092ceeeceb2cc2391f22d81693ddda3aecc8c6e assets/sedmod/blockstates/plastico_block.json
 1a866d5874d970f1880ddd86fb1bf1895cd7c5e1 assets/sedmod/blockstates/plastico_button.json
 8d3be1a9eaf03ddb5109f0728da773c1a0f6f2b4 assets/sedmod/blockstates/plastico_door.json
@@ -61,6 +62,12 @@ fc1a6b57817f7ebeb9ff63419ff5d12fdb9961cf assets/sedmod/models/block/aluminio_sta
 ae1605a2c34385548b47a0fb4f3046472b6f0dbe assets/sedmod/models/block/caja_pepsi.json
 94da5350433f2268cb9493d1434a05640cfd04f4 assets/sedmod/models/block/deepslate_aluminio_ore.json
 00c403dd6f8c61fb4d42b8acb72d520f97c0aac0 assets/sedmod/models/block/deepslate_plastico_ore.json
+9febce84c6412f9dff9eeb857ac45a5b571cf7da assets/sedmod/models/block/lechuga_stage0.json
+4fdbd278e9167bf3c733201db0dc9dffc0b7b362 assets/sedmod/models/block/lechuga_stage1.json
+82749c6a1187a9c814d205acfbcc3d2f8874d161 assets/sedmod/models/block/lechuga_stage2.json
+80e3d2c1a9644a84d65d6280999a5fdd71f55c6b assets/sedmod/models/block/lechuga_stage3.json
+a15e009a5b76f73268d41a84e84c2bad3c96e972 assets/sedmod/models/block/lechuga_stage4.json
+e90b7fb87e56d4ad6b087fce2e39b874a40a88a5 assets/sedmod/models/block/lechuga_stage5.json
 d02681f10624842f81e4dad0e4a3086d94172d24 assets/sedmod/models/block/plastico_block.json
 73069fa705563ea0c8087c2218d480fbef2414c4 assets/sedmod/models/block/plastico_button.json
 390aefda97dbc316523a3919b2258c0231f70ba1 assets/sedmod/models/block/plastico_button_pressed.json
