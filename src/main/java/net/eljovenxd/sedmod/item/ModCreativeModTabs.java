@@ -27,6 +27,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.LATA_COMBUSTIBLE.get());
                         pOutput.accept(ModItems.LECHUGA.get());
                         pOutput.accept(ModItems.LECHUGA_SEEDS.get());
+                        pOutput.accept(ModBlocks.CEMPASUCHIL.get());
 
 
                         // Recursos (Lingotes y Crudos)

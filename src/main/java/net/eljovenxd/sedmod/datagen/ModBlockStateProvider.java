@@ -52,6 +52,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         modLoc("block/pepsi_lado")) // west
         );
 
+        simpleBlockWithItem(ModBlocks.CEMPASUCHIL.get(), models().cross(blockTexture(ModBlocks.CEMPASUCHIL.get()).getPath(),
+                blockTexture(ModBlocks.CEMPASUCHIL.get())).renderType("cutout"));
+        simpleBlockWithItem(ModBlocks.POTTED_CEMPASUCHIL.get(), models().singleTexture("potted_cempasuchil", new ResourceLocation("flower_pot_cross"), "plant",
+                blockTexture(ModBlocks.CEMPASUCHIL.get())).renderType("cutout"));
+
 
 
         stairsBlock(((StairBlock) ModBlocks.PLASTICO_STAIRS.get()), blockTexture(ModBlocks.PLASTICO_BLOCK.get()));

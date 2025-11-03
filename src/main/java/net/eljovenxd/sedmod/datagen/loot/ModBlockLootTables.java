@@ -95,6 +95,9 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         this.add(ModBlocks.LECHUGA_CROP.get(), createCropDrops(ModBlocks.LECHUGA_CROP.get(), ModItems.LECHUGA.get(),
                 ModItems.LECHUGA_SEEDS.get(), lootitemcondition$builder));
+
+        this.dropSelf(ModBlocks.CEMPASUCHIL.get());
+        this.add(ModBlocks.POTTED_CEMPASUCHIL.get(), createPotFlowerItemTable(ModBlocks.CEMPASUCHIL.get()));
     }
 
     // --- Helper de Estilo Cobre (Igual que el ejemplo) ---

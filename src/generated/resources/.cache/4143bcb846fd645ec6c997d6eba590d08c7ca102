@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-03T10:51:53.2587711	Item Models: sedmod
+// 1.20.1	2025-11-03T17:31:58.3652076	Item Models: sedmod
 c450dcc3038d7df833c5b5957b4d6a2c31fdcfb1 assets/sedmod/models/item/agua.json
 363368cf40b015c25ba7b32ed6bafdf68de752b2 assets/sedmod/models/item/alciplaotimimio_trapdoor.json
 b32f07c755a41d04ffaebf2a2253773439b3f4b3 assets/sedmod/models/item/aluminio_axe.json
@@ -60,6 +60,7 @@ f3f1e0e9aeec170dedaec7bd1a5b3f8d271d7960 assets/sedmod/models/item/aluminio_shov
 4be4d236558edcb3642ad62f02e2a4a44941e345 assets/sedmod/models/item/aluminio_stairs.json
 b83daf426409b04c1709e37686a509f7169500a9 assets/sedmod/models/item/aluminio_sword.json
 445b3e66c85a08f06fd2f5059ae527d0e64b9ea9 assets/sedmod/models/item/aluminio_wall.json
+f1925360cd91c55757a632dc7248dd6bd7963cfc assets/sedmod/models/item/cempasuchil.json
 e65aaf6f54e768ee07212b5613af5e77de991da9 assets/sedmod/models/item/coca.json
 7c28478ef31063001ef87c83acc5b82b3caa4fe4 assets/sedmod/models/item/lata_combustible.json
 4dd945ecb3682845e3adcf68e4b9fd79d27e12f1 assets/sedmod/models/item/lechuga.json

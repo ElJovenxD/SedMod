@@ -56,12 +56,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.LECHUGA);
         simpleItem(ModItems.LECHUGA_SEEDS);
 
+        // --- Flores ---
+        simpleBlockItemBlockTexture(ModBlocks.CEMPASUCHIL);
 
-        // --- AÑADE ESTAS LÍNEAS ---
-        simpleItem(ModItems.PIEDRITA); // 'simpleItem' porque es un item normal
-        handheldItem(ModItems.PLASTICO_CUCHILLO); // 'handheldItem' porque es una herramienta/arma
-        handheldItem(ModItems.ALUMINIO_CUCHILLO); // 'handheldItem' porque es una herramienta/arma
-        // --- FIN ---
+        // --- Piedras en el riñòn ---
+        simpleItem(ModItems.PIEDRITA);
+        handheldItem(ModItems.PLASTICO_CUCHILLO);
+        handheldItem(ModItems.ALUMINIO_CUCHILLO);
 
         // --- Herramientas de Aluminio (3D) ---
         handheldItem(ModItems.ALUMINIO_SWORD);
@@ -207,5 +208,11 @@ public class ModItemModelProvider extends ItemModelProvider {
         return withExistingParent(item.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(SedMod.MOD_ID,"item/" + item.getId().getPath()));
+    }
+
+    private ItemModelBuilder simpleBlockItemBlockTexture(RegistryObject<Block> item) {
+        return withExistingParent(item.getId().getPath(),
+                new ResourceLocation("item/generated")).texture("layer0",
+                new ResourceLocation(SedMod.MOD_ID,"block/" + item.getId().getPath()));
     }
 }

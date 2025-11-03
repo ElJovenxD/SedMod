@@ -12,6 +12,8 @@ import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.loot.ModLootModifiers;
 import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -54,7 +56,9 @@ public class SedMod {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(() -> {
+            ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(ModBlocks.CEMPASUCHIL.getId(),ModBlocks.POTTED_CEMPASUCHIL);
+        });
     }
 
     // Add the example block item to the building blocks tab

@@ -7,6 +7,7 @@ import net.eljovenxd.sedmod.item.custom.SoundBlock;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -19,6 +20,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 
 import java.util.function.Supplier;
+
+import static net.minecraft.world.item.Items.registerBlock;
 
 public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
@@ -121,6 +124,14 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> LECHUGA_CROP = BLOCKS.register("lechuga_crop",
             () -> new LechugaCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));
+
+    public static final RegistryObject<Block> CEMPASUCHIL = registryBlock("cempasuchil",
+            () -> new FlowerBlock(() -> MobEffects.LUCK, 5,
+                    BlockBehaviour.Properties.copy(Blocks.ALLIUM).noOcclusion().noCollission()));
+    public static final RegistryObject<Block> POTTED_CEMPASUCHIL = BLOCKS.register("potted_cempasuchil",
+            () -> new FlowerPotBlock(() -> ((FlowerPotBlock) Blocks.FLOWER_POT), ModBlocks.CEMPASUCHIL,
+                    BlockBehaviour.Properties.copy(Blocks.POTTED_ALLIUM).noOcclusion()));
+
 
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

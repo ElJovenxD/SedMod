@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-03T10:51:53.2587711	Block States: sedmod
+// 1.20.1	2025-11-03T17:31:58.3606915	Block States: sedmod
 6601239c8183fafabe4bb6e465e2b4887c1d0aef assets/sedmod/blockstates/alciplaotimimio_trapdoor.json
 a7536297cc137e3e7fbc6a201c101bd957458f6f assets/sedmod/blockstates/aluminio_block.json
 26a5a3b608ff7f62281c71ea6da8f21780682c88 assets/sedmod/blockstates/aluminio_button.json
@@ -12,6 +12,7 @@ efeb44defdc8e7214661a383e9aec6e477b25eeb assets/sedmod/blockstates/aluminio_ore.
 07ec1d1dd356af268ce049d03c80f7e750c2d7c1 assets/sedmod/blockstates/aluminio_wall.json
 1e911672815d3c9edebb3b9f38e8d2c0fe2cd9b4 assets/sedmod/blockstates/caja_coca.json
 4f73bb46cc1f3c972b7348e1ab856d24636d2b2d assets/sedmod/blockstates/caja_pepsi.json
+14f4112757d4d95ce4cf24d62c52e03bc2270f3b assets/sedmod/blockstates/cempasuchil.json
 86216b92fde2b68bf4fa4b679547b0c8ca53583b assets/sedmod/blockstates/deepslate_aluminio_ore.json
 2d40b0858d8ec75559107d081650957124c4b82a assets/sedmod/blockstates/deepslate_plastico_ore.json
 9f510f81af453dbf15bb9b32e9b275db25ba887c assets/sedmod/blockstates/lechuga_crop.json
@@ -26,6 +27,7 @@ a6504b448576a2a4f38d9e6e6bae2703e2ba355e assets/sedmod/blockstates/plastico_fenc
 78c6edba9c7434edfbddaaddeba2419725e082c0 assets/sedmod/blockstates/plastico_stairs.json
 97c048ceab0a92592fcd00266db888b5c1b83207 assets/sedmod/blockstates/plastico_trapdoor.json
 3590a4b39017486551f6586973329a135cc1420e assets/sedmod/blockstates/plastico_wall.json
+c0515a50b7edd8f93d5b8d813a7fa600e7500608 assets/sedmod/blockstates/potted_cempasuchil.json
 02ef4f527a2c05666c00908ed52f883b97899a71 assets/sedmod/blockstates/sound_block.json
 5fb034b17e3cd5672d394a571489805401d33127 assets/sedmod/models/block/alciplaotimimio_trapdoor_bottom.json
 0853337ee0edabececddc3bdf9dbf3f9b3991c0a assets/sedmod/models/block/alciplaotimimio_trapdoor_open.json
@@ -60,6 +62,7 @@ fc1a6b57817f7ebeb9ff63419ff5d12fdb9961cf assets/sedmod/models/block/aluminio_sta
 17410321661fdfd18cf36ef1e9b5747128b68793 assets/sedmod/models/block/aluminio_wall_side_tall.json
 14165e65f40282ed490de4f9c2e52fae037f3eb1 assets/sedmod/models/block/caja_coca.json
 ae1605a2c34385548b47a0fb4f3046472b6f0dbe assets/sedmod/models/block/caja_pepsi.json
+7bd3db740219182f37b28b5ebdc2a39240d4519e assets/sedmod/models/block/cempasuchil.json
 94da5350433f2268cb9493d1434a05640cfd04f4 assets/sedmod/models/block/deepslate_aluminio_ore.json
 00c403dd6f8c61fb4d42b8acb72d520f97c0aac0 assets/sedmod/models/block/deepslate_plastico_ore.json
 9febce84c6412f9dff9eeb857ac45a5b571cf7da assets/sedmod/models/block/lechuga_stage0.json
@@ -99,13 +102,16 @@ caf6836ffddc252ed41fcad49274a282b8d51b36 assets/sedmod/models/block/plastico_tra
 9bac405bbfbfa7d197dd2bbb8f1c442fa8e12ebb assets/sedmod/models/block/plastico_wall_post.json
 ea929a038ceda555adc3626cb81fae724c4b41fe assets/sedmod/models/block/plastico_wall_side.json
 d012c613373a38d116bf2e23c3acc4996ec3dd4c assets/sedmod/models/block/plastico_wall_side_tall.json
+d3f1a4899396d3e20471dcea6e324ac643530c6f assets/sedmod/models/block/potted_cempasuchil.json
 3f74008ee9408f87f7ede7637990c92860d75347 assets/sedmod/models/block/sound_block.json
 194cde06e14135f52398970ab56d210eba20662e assets/sedmod/models/item/aluminio_block.json
 129a55b5534c0ce2661f83c950af0d7b34e37a8f assets/sedmod/models/item/aluminio_ore.json
 d892b14f3e0d4d5c2825f7d414cc6f8bbc310590 assets/sedmod/models/item/caja_coca.json
 6106798bf16051c228dff9b035a1bfbf422d4d00 assets/sedmod/models/item/caja_pepsi.json
+b100d79c5be1bd436c556057709ec4fcdd94435b assets/sedmod/models/item/cempasuchil.json
 b239289f7df1a33b017e83e438cb7eb6a34d1929 assets/sedmod/models/item/deepslate_aluminio_ore.json
 f3e210bb39552cb8d414ada85bdc15fff766b9f7 assets/sedmod/models/item/deepslate_plastico_ore.json
 056ba98cba2c15056442fb05e13ab16f89de4b57 assets/sedmod/models/item/plastico_block.json
 2675dde420a4f0d3f7b3aa886cd7d4aaf0366651 assets/sedmod/models/item/plastico_ore.json
+e6f4bebd53403762338b6dd0baa849d874c7d06d assets/sedmod/models/item/potted_cempasuchil.json
 9221e491b9e7ec7d4cd3b40c28830e62c2502d5e assets/sedmod/models/item/sound_block.json
