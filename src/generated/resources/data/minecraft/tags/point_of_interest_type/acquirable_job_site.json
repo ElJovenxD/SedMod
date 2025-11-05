@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "sedmod:coca_poi",
+      "required": false
+    },
+    {
+      "id": "sedmod:pepsi_poi",
+      "required": false
+    }
+  ]
+}

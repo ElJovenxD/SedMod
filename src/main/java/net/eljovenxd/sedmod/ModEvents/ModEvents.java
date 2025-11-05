@@ -497,7 +497,7 @@ public class ModEvents {
 
         genericTrades.add((pTrader, pRandom) -> new MerchantOffer(
                 new ItemStack(Items.EMERALD, 1),
-                new ItemStack(ModItems.CEMPASUCHIL.get(), 1),
+                new ItemStack(ModBlocks.CEMPASUCHIL.get(), 1),
                 3, 2, 0.2f));
 
         rareTrades.add((pTrader, pRandom) -> new MerchantOffer(
