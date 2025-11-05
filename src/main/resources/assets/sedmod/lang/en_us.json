@@ -84,5 +84,8 @@
 
   "message.sedmod.piedrita_obtained": "Mamaste, te salieron piedras en los riñones",
   "message.sedmod.piedrita_stuck_toss": "¡No puedes tirar la piedra del riñón!",
-  "message.sedmod.piedrita_stuck_move": "¡No puedes mover la piedra del riñón!"
+  "message.sedmod.piedrita_stuck_move": "¡No puedes mover la piedra del riñón!",
+
+  "entity.minecraft.villager.sedmod.cocamaster": "Repartidor de la Coca",
+  "entity.minecraft.villager.sedmod.pepsimaster": "Repartidor de la Pepsi"
 }

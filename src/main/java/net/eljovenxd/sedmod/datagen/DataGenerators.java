@@ -36,5 +36,6 @@ public class DataGenerators {
         generator.addProvider(event.includeServer(), new ModItemTagGenerator(packOutput, lookupProvider, blockTagGenerator.contentsGetter(), existingFileHelper)); // Para etiquetas de ítems (tags)
 
         generator.addProvider(event.includeServer(), new ModGlobalLootModifiersProvider(packOutput));
+        generator.addProvider(event.includeServer(), new ModPoiTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
     }
 }

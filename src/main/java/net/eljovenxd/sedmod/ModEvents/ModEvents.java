@@ -1,6 +1,8 @@
 package net.eljovenxd.sedmod.ModEvents;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.eljovenxd.sedmod.SedMod;
+import net.eljovenxd.sedmod.block.ModBlocks;
 import net.eljovenxd.sedmod.fatigue.FatigueProvider;
 import net.eljovenxd.sedmod.fatigue.FatigueStorage;
 import net.eljovenxd.sedmod.item.ModItems;
@@ -11,6 +13,7 @@ import net.eljovenxd.sedmod.thirst.ThirstProvider;
 import net.eljovenxd.sedmod.thirst.ThirstStorage;
 import net.eljovenxd.sedmod.cocacounter.CocaCounterProvider;
 import net.eljovenxd.sedmod.cocacounter.ICocaCounter;
+import net.eljovenxd.sedmod.villager.ModVillagers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -24,12 +27,18 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -38,9 +47,13 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = SedMod.MOD_ID)
 public class ModEvents {
@@ -302,5 +315,194 @@ public class ModEvents {
                 });
             }
         }
+    }
+
+        @SubscribeEvent
+        public static void addCustomTrades(VillagerTradesEvent event) {
+            if(event.getType() == VillagerProfession.FARMER) {
+                Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+
+                // Level 1
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.EMERALD, 1),
+                        new ItemStack(ModItems.LECHUGA.get(), 12),
+                        10, 8, 0.02f));
+
+                // Level 2
+                trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.IRON_INGOT, 3),
+                        new ItemStack(ModItems.LECHUGA_SEEDS.get(), 6),
+                        5, 9, 0.035f));
+
+
+            if(event.getType() == VillagerProfession.LIBRARIAN) {
+                Int2ObjectMap<List<VillagerTrades.ItemListing>> trades1 = event.getTrades();
+                ItemStack enchantedBook = EnchantedBookItem.createForEnchantment(new EnchantmentInstance(Enchantments.MENDING, 1));
+
+                // Level 1
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.EMERALD, 32),
+                        enchantedBook,
+                        2, 8, 0.02f));
+            }
+
+            if(event.getType() == VillagerProfession.ARMORER){
+                Int2ObjectMap<List<VillagerTrades.ItemListing>> trades2 = event.getTrades();
+
+                // Level 1
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(ModItems.PLASTICO_INGOT.get(),6),
+                        new ItemStack(Items.EMERALD, 1),
+                        15, 8, 0.02f));
+
+                // Level 2
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(ModItems.ALUMINIO_INGOT.get(),4),
+                        new ItemStack(Items.EMERALD, 1),
+                        15, 8, 0.02f));
+            }
+
+            if(event.getType() == ModVillagers.COCA_MASTER.get()) {
+                Int2ObjectMap<List<VillagerTrades.ItemListing>> trades2 = event.getTrades();
+
+                //Level 1
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.COAL, 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        16, 1, 0.05f));
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.COPPER_INGOT, 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        16, 1, 0.05f));
+                trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(ModItems.PLASTICO_INGOT.get(), 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        16, 1, 0.05f));
+
+                //Level 2
+                trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.IRON_INGOT, 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        16, 2, 0.05f));
+                trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(ModItems.ALUMINIO_INGOT.get(), 4),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        16, 2, 0.05f));
+
+                //Level 3
+                trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.GOLD_INGOT, 1),
+                        new ItemStack(ModItems.COCA.get(), 3),
+                        12, 3, 0.05f));
+                trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.LAPIS_LAZULI, 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        12, 3, 0.05f));
+                trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.REDSTONE, 8),
+                        new ItemStack(ModItems.COCA.get(), 1),
+                        12, 3, 0.05f));
+
+                //Level 4
+                trades.get(4).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.DIAMOND, 1),
+                        new ItemStack(ModItems.COCA.get(), 8),
+                        8, 5, 0.05f));
+                trades.get(4).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.EMERALD, 1),
+                        new ItemStack(ModItems.COCA.get(), 8),
+                        16, 3, 0.05f));
+
+                //Level 5
+                trades.get(5).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.DIAMOND, 2),
+                        new ItemStack(ModBlocks.CAJA_COCA.get(), 3),
+                        3, 10, 0.05f));
+                //Level 6
+                trades.get(5).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.COBBLESTONE, 16),
+                        new ItemStack(ModItems.COCA.get(), 2),
+                        4, 8, 0.05f));
+            }
+
+                if(event.getType() == ModVillagers.PEPSI_MASTER.get()) {
+                    Int2ObjectMap<List<VillagerTrades.ItemListing>> trades2 = event.getTrades();
+
+                    //Level 1
+                    trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.COAL, 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            16, 1, 0.05f));
+                    trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.COPPER_INGOT, 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            16, 1, 0.05f));
+                    trades.get(1).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(ModItems.PLASTICO_INGOT.get(), 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            16, 1, 0.05f));
+
+                    //Level 2
+                    trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.IRON_INGOT, 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            16, 2, 0.05f));
+                    trades.get(2).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(ModItems.ALUMINIO_INGOT.get(), 4),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            16, 2, 0.05f));
+
+                    //Level 3
+                    trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.GOLD_INGOT, 1),
+                            new ItemStack(ModItems.PEPSI.get(), 3),
+                            12, 3, 0.05f));
+                    trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.LAPIS_LAZULI, 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            12, 3, 0.05f));
+                    trades.get(3).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.REDSTONE, 8),
+                            new ItemStack(ModItems.PEPSI.get(), 1),
+                            12, 3, 0.05f));
+
+                    //Level 4
+                    trades.get(4).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.DIAMOND, 1),
+                            new ItemStack(ModItems.PEPSI.get(), 8),
+                            8, 5, 0.05f));
+                    trades.get(4).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.EMERALD, 1),
+                            new ItemStack(ModItems.PEPSI.get(), 8),
+                            16, 3, 0.05f));
+
+                    //Level 5
+                    trades.get(5).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.DIAMOND, 2),
+                            new ItemStack(ModBlocks.CAJA_PEPSI.get(), 3),
+                            3, 10, 0.05f));
+                    //Level 6
+                    trades.get(5).add((pTrader, pRandom) -> new MerchantOffer(
+                            new ItemStack(Items.COBBLESTONE, 16),
+                            new ItemStack(ModItems.PEPSI.get(), 2),
+                            4, 8, 0.05f));
+                }
+        }
+    }
+
+    @SubscribeEvent
+    public static void addCustomWandererTrades(WandererTradesEvent event) {
+        List<VillagerTrades.ItemListing> genericTrades = event.getGenericTrades();
+        List<VillagerTrades.ItemListing> rareTrades = event.getRareTrades();
+
+        genericTrades.add((pTrader, pRandom) -> new MerchantOffer(
+                new ItemStack(Items.EMERALD, 1),
+                new ItemStack(ModItems.CEMPASUCHIL.get(), 1),
+                3, 2, 0.2f));
+
+        rareTrades.add((pTrader, pRandom) -> new MerchantOffer(
+                new ItemStack(Items.EMERALD, 2),
+                new ItemStack(ModItems.METAL_DETECTOR.get(), 1),
+                2, 12, 0.15f));
     }
 }

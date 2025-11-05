@@ -140,6 +140,9 @@ public class ModItems {
     public static final RegistryObject<Item> LECHUGA_SEEDS = ITEMS.register("lechuga_seeds",
             () -> new ItemNameBlockItem(ModBlocks.LECHUGA_CROP.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> CEMPASUCHIL = ITEMS.register("cempasuchil",
+            () -> new ItemNameBlockItem(ModBlocks.CEMPASUCHIL.get(), new Item.Properties()));
+
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);
     }

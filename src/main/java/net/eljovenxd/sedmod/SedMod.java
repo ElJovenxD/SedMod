@@ -11,6 +11,7 @@ import net.eljovenxd.sedmod.item.ModCreativeModTabs;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.loot.ModLootModifiers;
 import net.eljovenxd.sedmod.sounds.ModSounds;
+import net.eljovenxd.sedmod.villager.ModVillagers;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -43,6 +44,7 @@ public class SedMod {
         ModSounds.register(modEventBus);
 
         ModLootModifiers.register(modEventBus);
+        ModVillagers.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
