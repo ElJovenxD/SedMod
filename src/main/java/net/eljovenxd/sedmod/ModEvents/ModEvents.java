@@ -9,6 +9,7 @@ import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.networking.ModMessages;
 import net.eljovenxd.sedmod.networking.SyncFatiguePacket;
 import net.eljovenxd.sedmod.networking.SyncThirstPacket;
+import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.eljovenxd.sedmod.thirst.ThirstProvider;
 import net.eljovenxd.sedmod.thirst.ThirstStorage;
 import net.eljovenxd.sedmod.cocacounter.CocaCounterProvider;
@@ -46,6 +47,7 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -125,6 +127,14 @@ public class ModEvents {
             if (!player.level().isClientSide) {
                 player.sendSystemMessage(Component.translatable("message.sedmod.piedrita_stuck_toss"));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
+        Player player = event.getEntity();
+        if (!player.level().isClientSide && !event.updateLevel()) {
+            player.level().playSound(null, player.blockPosition(), ModSounds.WAKE_UP.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
         }
     }
 
