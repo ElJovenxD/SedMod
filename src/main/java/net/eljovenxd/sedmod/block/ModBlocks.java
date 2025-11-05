@@ -4,6 +4,7 @@ import net.eljovenxd.sedmod.SedMod;
 import net.eljovenxd.sedmod.block.custom.LechugaCropBlock;
 import net.eljovenxd.sedmod.item.ModItems;
 import net.eljovenxd.sedmod.item.custom.SoundBlock;
+import net.eljovenxd.sedmod.sounds.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -120,7 +121,7 @@ public class ModBlocks {
             () -> new TrapDoorBlock(BlockBehaviour.Properties.copy(Blocks.IRON_TRAPDOOR).requiresCorrectToolForDrops(), BlockSetType.IRON));
 
     public static final RegistryObject<Block> SOUND_BLOCK = registryBlock("sound_block",
-            () -> new SoundBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.AMETHYST).requiresCorrectToolForDrops()));
+            () -> new SoundBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).sound(ModSounds.SOUND_BLOCK_SOUNDS).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> LECHUGA_CROP = BLOCKS.register("lechuga_crop",
             () -> new LechugaCropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion().noCollission()));

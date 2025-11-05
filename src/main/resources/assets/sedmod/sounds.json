@@ -1,4 +1,40 @@
 {
+  "metal_detector_found_ore": {
+    "subtitles": "sounds.sedmod.metal_detector_found_ore",
+    "sounds": [
+      "sedmod:metal_detector_found_ore"
+    ]
+  },
+  "sound_block_break": {
+    "subtitle": "sounds.sedmod.sound_block_break",
+    "sounds": [
+      "sedmod:sound_block_break"
+    ]
+  },
+  "sound_block_step": {
+    "subtitle": "sounds.sedmod.sound_block_step",
+    "sounds": [
+      "sedmod:sound_block_step"
+    ]
+  },
+  "sound_block_place": {
+    "subtitle": "sounds.sedmod.sound_block_place",
+    "sounds": [
+      "sedmod:sound_block_place"
+    ]
+  },
+  "sound_block_hit": {
+    "subtitle": "sounds.sedmod.sound_block_hit",
+    "sounds": [
+      "sedmod:sound_block_hit"
+    ]
+  },
+  "sound_block_fall": {
+    "subtitle": "sounds.sedmod.sound_block_fall",
+    "sounds": [
+      "sedmod:sound_block_fall"
+    ]
+  },
   "linkin_park_in_the_end": {
     "sounds": [
       {
