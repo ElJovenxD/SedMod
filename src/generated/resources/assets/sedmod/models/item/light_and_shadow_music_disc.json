@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "sedmod:item/light_and_shadow_music_disc"
+  }
+}

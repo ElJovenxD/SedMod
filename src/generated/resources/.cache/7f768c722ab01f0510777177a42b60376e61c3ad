@@ -1,2 +1,4 @@
-// 1.20.1	2025-10-29T07:40:38.6529349	Tags for minecraft:item mod id sedmod
+// 1.20.1	2025-11-06T09:05:54.9817769	Tags for minecraft:item mod id sedmod
+66d8d1f0c95e910824f7b2112944c773255b7aea data/minecraft/tags/items/creeper_drop_music_discs.json
+6fb0c477ed8c05ed29fd852bbf4bd5724d772d0e data/minecraft/tags/items/music_discs.json
 e5fbb753f0c9e58e18e9e85d5e4ebb387a1ffeb7 data/minecraft/tags/items/trimmable_armor.json

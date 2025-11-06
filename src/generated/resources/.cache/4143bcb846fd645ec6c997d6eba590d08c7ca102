@@ -1,4 +1,4 @@
-// 1.20.1	2025-11-03T17:31:58.3652076	Item Models: sedmod
+// 1.20.1	2025-11-06T09:05:54.9822854	Item Models: sedmod
 c450dcc3038d7df833c5b5957b4d6a2c31fdcfb1 assets/sedmod/models/item/agua.json
 363368cf40b015c25ba7b32ed6bafdf68de752b2 assets/sedmod/models/item/alciplaotimimio_trapdoor.json
 b32f07c755a41d04ffaebf2a2253773439b3f4b3 assets/sedmod/models/item/aluminio_axe.json
@@ -65,6 +65,7 @@ e65aaf6f54e768ee07212b5613af5e77de991da9 assets/sedmod/models/item/coca.json
 7c28478ef31063001ef87c83acc5b82b3caa4fe4 assets/sedmod/models/item/lata_combustible.json
 4dd945ecb3682845e3adcf68e4b9fd79d27e12f1 assets/sedmod/models/item/lechuga.json
 ceca488b803918244f3f99046ce51704821658d0 assets/sedmod/models/item/lechuga_seeds.json
+01d3f6723976336f3fbd02ae272b35f2c4ce7063 assets/sedmod/models/item/light_and_shadow_music_disc.json
 0f4d2a3134663f646b1237729961285b1b569e54 assets/sedmod/models/item/maruchan.json
 2c269bd9937e2628e69ce1d9d15d493415feb660 assets/sedmod/models/item/metal_detector.json
 96781c665a2cc6ddc19d3b8e942c68bcbc60f8d6 assets/sedmod/models/item/pepsi.json
@@ -131,3 +132,5 @@ ae111fdfae1e36dff8243d9a8f7bc7cb88014fd0 assets/sedmod/models/item/plastico_shov
 b82e6d96a6e5d1570745af712772e18f1211eb37 assets/sedmod/models/item/plastico_wall.json
 3daad77a909382b91a19fccfb0863542a5a78ee1 assets/sedmod/models/item/raw_aluminio.json
 44e2e21123f75cff5a6eb0818c652350e6d09e71 assets/sedmod/models/item/raw_plastico.json
+9a037c7bc0b5585add167f8ee4a17a884b71f561 assets/sedmod/models/item/rise_music_disc.json
+5e3cd913b2a98dc326d92b7c4ed9e6957296d38d assets/sedmod/models/item/warriors_music_disc.json
