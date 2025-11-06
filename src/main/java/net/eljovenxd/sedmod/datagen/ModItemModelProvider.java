@@ -55,6 +55,10 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItems.METAL_DETECTOR);
         simpleItem(ModItems.LECHUGA);
         simpleItem(ModItems.LECHUGA_SEEDS);
+        simpleItem(ModItems.WARRIORS_MUSIC_DISC);
+        simpleItem(ModItems.RISE_MUSIC_DISC);
+        simpleItem(ModItems.LIGHT_AND_SHADOW_MUSIC_DISC);
+
 
         // --- Flores ---
         simpleBlockItemBlockTexture(ModBlocks.CEMPASUCHIL);

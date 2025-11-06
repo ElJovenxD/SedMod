@@ -64,6 +64,12 @@
   "sounds.sedmod.bostezo": "Bostezo",
   "sounds.sedmod.wake_up": "¡Buenos dias!",
   "sounds.sedmod.heavy_is_the_crown": "Heavy is the crown",
+  "item.sedmod.rise_music_disc": "Disco Rise",
+  "item.sedmod.rise_music_disc.desc": "Rise - Worlds 2018",
+  "item.sedmod.light_and_shadow_music_disc": "Disco Light and Shadow",
+  "item.sedmod.light_and_shadow_music_disc.desc": "Light and Shadow - Hiroyuki Sawano",
+  "item.sedmod.warriors_music_disc": "Disco Warriors",
+  "item.sedmod.warriors_music_disc.desc": "Warriors - Worlds 2014",
 
   "tooltip.sedmod.metal_detector.no_valuables": "No se encontraron objetos de valor",
   "tooltip.sedmod.metal_detector.found_valuables": "¡Objetos de valor encontrados!",

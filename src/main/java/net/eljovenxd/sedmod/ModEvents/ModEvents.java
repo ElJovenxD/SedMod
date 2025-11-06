@@ -433,6 +433,11 @@ public class ModEvents {
                         new ItemStack(Items.COBBLESTONE, 16),
                         new ItemStack(ModItems.COCA.get(), 2),
                         4, 8, 0.05f));
+
+                trades.get(5).add((pTrader, pRandom) -> new MerchantOffer(
+                        new ItemStack(Items.EMERALD, 16),
+                        new ItemStack(ModItems.WARRIORS_MUSIC_DISC.get(), 2),
+                        4, 8, 0.05f));
             }
 
                 if(event.getType() == ModVillagers.PEPSI_MASTER.get()) {

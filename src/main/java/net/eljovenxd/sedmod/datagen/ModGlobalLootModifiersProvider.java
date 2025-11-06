@@ -40,6 +40,10 @@ public class ModGlobalLootModifiersProvider extends GlobalLootModifierProvider {
                 new LootTableIdCondition.Builder(new ResourceLocation("chests/simple_dungeon")).build(),
                 LootItemRandomChanceCondition.randomChance(0.15f).build()}, ModItems.METAL_DETECTOR.get()));
 
+        add("disc_from_spawners",new AddItemModifier(new LootItemCondition[]{
+                new LootTableIdCondition.Builder(new ResourceLocation("chests/simple_dungeon")).build(),
+                LootItemRandomChanceCondition.randomChance(0.15f).build()}, ModItems.LIGHT_AND_SHADOW_MUSIC_DISC.get()));
+
         add("plastico_from_suspicious_sand",new AddSusSandItemModifier(new LootItemCondition[]{
                 new LootTableIdCondition.Builder(new ResourceLocation("archaeology/desert_pyramid")).build()}, ModItems.PLASTICO_INGOT.get()));
 

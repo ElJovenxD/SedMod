@@ -31,5 +31,13 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                         ModItems.ALUMINIO_CHESTPLATE.get(),
                         ModItems.ALUMINIO_LEGGINGS.get(),
                         ModItems.ALUMINIO_BOOTS.get());
+
+        this.tag(ItemTags.MUSIC_DISCS)
+                .add(ModItems.RISE_MUSIC_DISC.get())
+                .add(ModItems.WARRIORS_MUSIC_DISC.get())
+                .add(ModItems.LIGHT_AND_SHADOW_MUSIC_DISC.get());
+
+        this.tag(ItemTags.CREEPER_DROP_MUSIC_DISCS)
+                .add(ModItems.RISE_MUSIC_DISC.get());
     }
 }

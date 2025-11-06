@@ -140,6 +140,14 @@ public class ModItems {
     public static final RegistryObject<Item> LECHUGA_SEEDS = ITEMS.register("lechuga_seeds",
             () -> new ItemNameBlockItem(ModBlocks.LECHUGA_CROP.get(), new Item.Properties()));
 
+    public static final RegistryObject<Item> WARRIORS_MUSIC_DISC = ITEMS.register("warriors_music_disc",
+            () -> new RecordItem(6, ModSounds.WARRIORS, new Item.Properties().stacksTo(1), 2440));
+
+    public static final RegistryObject<Item> RISE_MUSIC_DISC = ITEMS.register("rise_music_disc",
+            () -> new RecordItem(6, ModSounds.RISE, new Item.Properties().stacksTo(1), 2440));
+
+    public static final RegistryObject<Item> LIGHT_AND_SHADOW_MUSIC_DISC = ITEMS.register("light_and_shadow_music_disc",
+            () -> new RecordItem(6, ModSounds.LIGHT_AND_SHADOW, new Item.Properties().stacksTo(1), 2440));
 
     public static void register(IEventBus eventBus){
         ITEMS.register(eventBus);

@@ -43,6 +43,30 @@
       }
     ]
   },
+  "warriors": {
+    "sounds": [
+      {
+        "name": "sedmod:music/warriors",
+        "stream": true
+      }
+    ]
+  },
+  "light_and_shadow": {
+    "sounds": [
+      {
+        "name": "sedmod:music/light_and_shadow",
+        "stream": true
+      }
+    ]
+  },
+  "rise": {
+    "sounds": [
+      {
+        "name": "sedmod:music/rise",
+        "stream": true
+      }
+    ]
+  },
   "wake_up": {
     "subtitle": "sounds.sedmod.wake_up",
     "sounds": [

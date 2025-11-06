@@ -31,6 +31,10 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SOUND_BLOCK_PLACE = registerSoundEvent("sound_block_place");
     public static final RegistryObject<SoundEvent> SOUND_BLOCK_HIT = registerSoundEvent("sound_block_hit");
 
+    public static final RegistryObject<SoundEvent> RISE = registerSoundEvent("rise");
+    public static final RegistryObject<SoundEvent> LIGHT_AND_SHADOW = registerSoundEvent("light_and_shadow");
+    public static final RegistryObject<SoundEvent> WARRIORS = registerSoundEvent("warriors");
+
     public static final RegistryObject<SoundEvent> LINKIN_PARK_IN_THE_END = registerSoundEvent("linkin_park_in_the_end");
 
     public static final ForgeSoundType SOUND_BLOCK_SOUNDS = new ForgeSoundType(1f, 1f,

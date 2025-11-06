@@ -98,6 +98,11 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModItems.PLASTICO_LEGGINGS.get());
                         pOutput.accept(ModItems.PLASTICO_BOOTS.get());
 
+                        //Discos
+                        pOutput.accept(ModItems.RISE_MUSIC_DISC.get());
+                        pOutput.accept(ModItems.WARRIORS_MUSIC_DISC.get());
+                        pOutput.accept(ModItems.LIGHT_AND_SHADOW_MUSIC_DISC.get());
+
                     })
                     .build());
 
